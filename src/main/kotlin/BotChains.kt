@@ -1,7 +1,9 @@
-import chain.StartGreeting
+import chain.*
 import core.Bot
 import core.BotChains
 import handlers.CommandEvent
+import handlers.OnCallbackGotten
+import handlers.OnTextGotten
 
 class BotChains(
     private val mKey: String

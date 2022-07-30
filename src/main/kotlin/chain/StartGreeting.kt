@@ -1,6 +1,7 @@
 package chain
 
 import core.Updating
+import executables.DeleteMessage
 import executables.Executable
 import executables.SendMessage
 import handlers.BotRecognizerEvent
@@ -16,7 +17,7 @@ class StartGreeting(
             updating.map(mEvent)
             listOf(
                 SendMessage(
-                    "Привет\\! Я тестовый бот\\.",
+                    "Привет\\! Я могу рассказать интересны факт о числе\\. Введи команду /number что бы попробывать\\!",
                     mKey
                 )
             )
