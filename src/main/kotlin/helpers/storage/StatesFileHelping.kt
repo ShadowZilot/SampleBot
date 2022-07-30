@@ -1,12 +1,10 @@
 package helpers.storage
 
 import org.json.JSONArray
-import org.json.JSONObject
-import stating.State
+import staging.State
 
 class StatesFileHelping(
     file: JsonFile,
-    private val mCache: State.Mapper<JSONObject>
 ) : StorageHandling<State>(file) {
 
     override fun load() = mutableListOf<State>().apply {
@@ -22,7 +20,7 @@ class StatesFileHelping(
         mFile.writeArray(
             JSONArray().apply {
                 data.forEach {
-                    put(it.map(mCache))
+                    put(it.toJson())
                 }
             }
         )
