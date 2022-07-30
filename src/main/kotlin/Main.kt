@@ -3,6 +3,7 @@ import core.EventRecognizing
 import core.PollingHandling
 import core.interceptor.UpdatesInterceptor
 import okhttp3.OkHttpClient
+import statistic.StatisticChain
 
 val mClient = OkHttpClient.Builder()
     .build()
@@ -29,6 +30,13 @@ fun main(args: Array<String>) {
             Storages.stConfig.configValueString("botKey")
         ).chains()
     )
+    val statisticHandlers = EventRecognizing.Base(
+        bot,
+        StatisticChain(
+            Storages.stStatistics
+        ).chains()
+    )
+    bot.addListener(statisticHandlers)
     bot.addListener(events)
     botPolling.start()
 }

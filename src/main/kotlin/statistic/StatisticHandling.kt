@@ -1,6 +1,9 @@
 package statistic
 
+import core.Updating
 import helpers.storage.StorageHandling
+import updating.UpdatingChatId
+import updating.UserIdUpdating
 
 interface StatisticHandling {
 
@@ -8,7 +11,13 @@ interface StatisticHandling {
         userId: Long,
         chatId: Long,
         type: StatisticType,
-        parameters: List<Pair<String, Any>>
+        parameters: List<Pair<String, Any>> = emptyList()
+    )
+
+    fun writeStatistic(
+        updating: Updating,
+        type: StatisticType,
+        parameters: List<Pair<String, Any>> = emptyList()
     )
 
     class Base(
@@ -32,6 +41,17 @@ interface StatisticHandling {
                 )
             )
             mStore.cache(mStates)
+        }
+
+        override fun writeStatistic(updating: Updating,
+                                    type: StatisticType,
+                                    parameters: List<Pair<String, Any>>) {
+            writeStatistic(
+                updating.map(UserIdUpdating()),
+                updating.map(UpdatingChatId()).second,
+                type,
+                parameters
+            )
         }
     }
 }

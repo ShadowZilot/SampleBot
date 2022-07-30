@@ -2,9 +2,10 @@ import configuration.Config
 import helpers.storage.JsonFile
 import helpers.storage.StatesFileHelping
 import helpers.storage.UserFileHelping
-import images_storing.ImageSaving
-import images_storing.MediaStorage
 import staging.StateHandling
+import statistic.StatisticFileHandling
+import statistic.StatisticHandling
+import statistic.StatisticItemToJson
 import users.AllUsersStorage
 import users.UserToJson
 import java.io.File
@@ -23,11 +24,10 @@ object Storages {
             UserToJson()
         )
     )
-    val stImageStorage = MediaStorage.Base(
-        ImageSaving.Base(
-            mClient,
-            stConfig.configValueString("botKey"),
-            "@fileGeneratorBot1"
-        ), File("${sBasePath}kross_images")
+    val stStatistics = StatisticHandling.Base(
+        StatisticFileHandling(
+            JsonFile.Base(File("${sBasePath}statistic.json")),
+            StatisticItemToJson()
+        )
     )
 }
