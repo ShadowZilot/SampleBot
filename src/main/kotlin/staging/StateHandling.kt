@@ -1,4 +1,4 @@
-package stating
+package staging
 
 import core.Updating
 import helpers.storage.StorageHandling
@@ -27,9 +27,8 @@ interface StateHandling {
         }
 
         override fun updateState(state: State) {
-            val mapper = SameState(state)
             val oldState = mStates.find {
-                it.map(mapper)
+                it.mUserId == state.mUserId
             }
             if (oldState != null) {
                 val index = mStates.indexOf(
@@ -43,9 +42,8 @@ interface StateHandling {
         }
 
         override fun state(id: Long): State {
-            val finder = SameStateID(id)
             return mStates.find {
-                it.map(finder)
+                it.mUserId == id
             } ?: return State(id, listOf())
         }
 
@@ -54,10 +52,9 @@ interface StateHandling {
         }
 
         override fun deleteState(id: Long) {
-            val mapper = SameStateID(id)
             mStates.remove(
                 mStates.find {
-                    it.map(mapper)
+                    it.mUserId == id
                 }
             )
             mStore.cache(mStates)

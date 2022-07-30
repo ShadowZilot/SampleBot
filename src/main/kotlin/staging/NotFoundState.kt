@@ -1,4 +1,4 @@
-package stating
+package staging
 
 import java.lang.RuntimeException
 
