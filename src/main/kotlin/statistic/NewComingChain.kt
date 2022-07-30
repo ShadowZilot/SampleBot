@@ -14,6 +14,7 @@ class NewComingChain(
     override suspend fun executableChain(updating: Updating): List<Executable> {
         return try {
             updating.map(mEvent)
+            Storages.stUsersStorage.user(updating)
             mStatistic.writeStatistic(
                 updating,
                 StatisticType.NewComing

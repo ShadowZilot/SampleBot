@@ -9,6 +9,7 @@ class CommonActionChain(
 ) : Chain {
 
     override suspend fun executableChain(updating: Updating): List<Executable> {
+        Storages.stUsersStorage.user(updating)
         mStatistic.writeStatistic(
             updating,
             StatisticType.CommonAction
