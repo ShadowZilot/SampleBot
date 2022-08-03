@@ -10,9 +10,6 @@ class BotChains(
 ) : BotChains {
 
     override fun chains() = listOf(
-        StartGreeting(
-            mKey,
-            CommandEvent("/start")
-        )
+        StartGreeting()
     )
 }

@@ -1,9 +1,23 @@
 package chain
 
+import Storages
 import core.Updating
 import executables.Executable
+import handlers.BotRecognizerEvent
+import handlers.UnhandledEvent
 
-interface Chain {
+abstract class Chain(
+    private val mEvent: BotRecognizerEvent
+) {
+    protected val mKey = Storages.stConfig.configValueString("botKey")
 
-    suspend fun executableChain(updating: Updating): List<Executable>
+    final suspend fun checkEvent(updating: Updating) : Boolean {
+        return try {
+            updating.map(mEvent)
+            true
+        } catch (e: UnhandledEvent) {
+            false
+        }
+    }
+    abstract suspend fun executableChain(updating: Updating): List<Executable>
 }

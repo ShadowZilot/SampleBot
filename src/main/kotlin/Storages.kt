@@ -12,7 +12,6 @@ import java.io.File
 
 object Storages {
     val stConfig = Config.Base(File("${sBasePath}config.json"))
-
     val stStateStorage = StateHandling.Base(
         StatesFileHelping(
             JsonFile.Base(File("${sBasePath}states.json"))

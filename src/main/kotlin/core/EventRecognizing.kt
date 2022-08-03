@@ -12,18 +12,23 @@ interface EventRecognizing : UpdatesGotten {
 
         override suspend fun fetchUpdates(updates: List<Updating>, id: Long) {
             if (id > mMaxId) {
-                updates.forEach {
+                updates.forEach { updating ->
                     mChains.forEach { chain ->
-                        val executables = chain.executableChain(it)
-                        for (i in executables.indices) {
-                            try {
-                                mBot.implementRequest(it.map(executables[i]), executables[i])
-                            } catch (e: IllegalArgumentException) {
-                                continue
+                        if (chain.checkEvent(updating)) {
+                            val executables = chain.executableChain(updating)
+                            for (i in executables.indices) {
+                                try {
+                                    mBot.implementRequest(
+                                        updating.map(executables[i]),
+                                        executables[i]
+                                    )
+                                } catch (e: IllegalArgumentException) {
+                                    continue
+                                }
                             }
-                        }
-                        if (executables.isNotEmpty()) {
-                            return
+                            if (executables.isNotEmpty()) {
+                                return
+                            }
                         }
                     }
                 }
