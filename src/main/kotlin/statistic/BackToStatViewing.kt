@@ -2,26 +2,27 @@ package statistic
 
 import chain.Chain
 import core.Updating
-import executables.DeleteMessage
+import executables.AnswerToCallback
+import executables.EditTextMessage
 import executables.Executable
-import executables.SendMessage
-import handlers.CommandEvent
+import handlers.OnCallbackGotten
 import helpers.convertToVertical
 import keyboard_markup.InlineButton
 import keyboard_markup.InlineKeyboardMarkup
 
-class StartViewingStatisticChain : Chain(CommandEvent("/statistic")) {
-
+class BackToStatViewing : Chain(
+    OnCallbackGotten("backToStatistic")
+) {
     override suspend fun executableChain(updating: Updating): List<Executable> {
         return listOf(
-            DeleteMessage(
+            AnswerToCallback(
                 mKey,
-                updating
+                ""
             ),
-            SendMessage(
+            EditTextMessage(
+                mKey,
                 "*Статистика*\n" +
                         "Здесь представлены разделы по которым вы можете посмотреть статистику",
-                mKey,
                 mMarkup = InlineKeyboardMarkup(
                     listOf(
                         InlineButton(

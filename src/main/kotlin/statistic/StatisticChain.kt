@@ -8,6 +8,11 @@ class StatisticChain(
 
     override fun chains() = listOf(
         NewComingChain(mStatistics),
-        CommonActionChain(mStatistics)
+        CommonActionChain(mStatistics),
+        StartViewingStatisticChain(),
+        ActiveUsersChain(),
+        BackToStatViewing(),
+        NewComingUsersStat(),
+        ActionsStat()
     )
 }
