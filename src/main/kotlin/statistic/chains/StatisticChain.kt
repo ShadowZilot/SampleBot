@@ -40,6 +40,14 @@ class StatisticChain(
                 Storages.stStatistics
             )
         ),
+        PointEndDateChain(),
+        PointEndDateChainFinal(
+            StatisticMessage.Base(
+                Storages.stConfig.configValueString("botKey"),
+                Storages.stStateStorage,
+                Storages.stStatistics
+            )
+        ),
         CancelEnteringDateChain(
             StatisticMessage.Base(
                 Storages.stConfig.configValueString("botKey"),

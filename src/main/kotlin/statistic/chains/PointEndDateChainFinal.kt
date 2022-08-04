@@ -15,19 +15,18 @@ import statistic.period_time.DateExtractor
 import statistic.period_time.WrongTimeFormat
 import updating.UpdatingMessage
 
-class PointStartDateChainFinal(
+class PointEndDateChainFinal(
     private val mStatisticMessage: StatisticMessage
 ) : Chain(
     OnTextGotten()
 ) {
-
     override suspend fun executableChain(updating: Updating): List<Executable> {
-        return if (mStates.state(updating).safetyBoolean("isWaitForStartDate")) {
+        return if (mStates.state(updating).safetyBoolean("isWaitForEndDate")) {
             try {
                 val date = DateExtractor.Base(updating.map(UpdatingMessage())).extract()
                 mStates.state(updating).editor(mStates).apply {
-                    putLong("statStartPeriodDate", date)
-                    deleteValue("isWaitForStartDate")
+                    putLong("statEndPeriodDate", date)
+                    deleteValue("isWaitForEndDate")
                 }.commit()
                 listOf(
                     DeleteMessage(mKey, updating),
