@@ -108,6 +108,12 @@ fun State.safetyString(key: String): String = try {
     ""
 }
 
+fun State.safetyBoolean(key: String): Boolean = try {
+    boolean(key)
+} catch (e: NotFoundStateValue) {
+    false
+}
+
 fun List<Pair<String, Any>>.merge(newList: List<Pair<String, Any>>): List<Pair<String, Any>> {
     return mutableListOf<Pair<String, Any>>().apply {
         addAll(newList)

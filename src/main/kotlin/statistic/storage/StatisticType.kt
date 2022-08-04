@@ -1,4 +1,4 @@
-package statistic
+package statistic.storage
 
 sealed interface StatisticType {
 

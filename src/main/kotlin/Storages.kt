@@ -3,9 +3,9 @@ import helpers.storage.JsonFile
 import helpers.storage.StatesFileHelping
 import helpers.storage.UserFileHelping
 import staging.StateHandling
-import statistic.StatisticFileHandling
-import statistic.StatisticHandling
-import statistic.StatisticItemToJson
+import statistic.storage.StatisticFileHandling
+import statistic.storage.StatisticHandling
+import statistic.storage.StatisticItemToJson
 import users.AllUsersStorage
 import users.UserToJson
 import java.io.File

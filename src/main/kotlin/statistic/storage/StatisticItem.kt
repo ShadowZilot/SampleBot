@@ -1,4 +1,4 @@
-package statistic
+package statistic.storage
 
 import org.json.JSONObject
 

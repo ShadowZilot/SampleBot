@@ -3,7 +3,7 @@ import core.EventRecognizing
 import core.PollingHandling
 import core.interceptor.UpdatesInterceptor
 import okhttp3.OkHttpClient
-import statistic.StatisticChain
+import statistic.chains.StatisticChain
 
 val mClient = OkHttpClient.Builder()
     .build()

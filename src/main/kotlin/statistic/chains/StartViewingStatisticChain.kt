@@ -1,28 +1,31 @@
-package statistic
+package statistic.chains
 
 import chain.Chain
 import core.Updating
-import executables.AnswerToCallback
-import executables.EditTextMessage
+import executables.DeleteMessage
 import executables.Executable
-import handlers.OnCallbackGotten
+import executables.SendMessage
+import handlers.CommandEvent
 import helpers.convertToVertical
 import keyboard_markup.InlineButton
 import keyboard_markup.InlineKeyboardMarkup
+import statistic.period_time.StatisticsTimePeriod
 
-class BackToStatViewing : Chain(
-    OnCallbackGotten("backToStatistic")
-) {
+class StartViewingStatisticChain(
+    private val mStatPeriods: StatisticsTimePeriod
+) : Chain(CommandEvent("/statistic")) {
+
     override suspend fun executableChain(updating: Updating): List<Executable> {
+        mStatPeriods.setupDefaultPeriod(updating)
         return listOf(
-            AnswerToCallback(
+            DeleteMessage(
                 mKey,
-                ""
+                updating
             ),
-            EditTextMessage(
-                mKey,
+            SendMessage(
                 "*Статистика*\n" +
                         "Здесь представлены разделы по которым вы можете посмотреть статистику",
+                mKey,
                 mMarkup = InlineKeyboardMarkup(
                     listOf(
                         InlineButton(

@@ -10,6 +10,7 @@ abstract class Chain(
     private val mEvent: BotRecognizerEvent
 ) {
     protected val mKey = Storages.stConfig.configValueString("botKey")
+    protected val mStates = Storages.stStateStorage
 
     final suspend fun checkEvent(updating: Updating) : Boolean {
         return try {

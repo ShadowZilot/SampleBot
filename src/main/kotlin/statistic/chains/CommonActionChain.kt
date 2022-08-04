@@ -1,21 +1,22 @@
-package statistic
+package statistic.chains
 
-import Storages
 import chain.Chain
 import core.Updating
 import executables.Executable
-import handlers.CommandEvent
+import handlers.BotRecognizerEvent
+import statistic.storage.StatisticHandling
+import statistic.storage.StatisticType
 
-class NewComingChain(
+class CommonActionChain(
     private val mStatistic: StatisticHandling
-) : Chain(CommandEvent("/start")) {
+) : Chain(BotRecognizerEvent.Dummy) {
 
     override suspend fun executableChain(updating: Updating): List<Executable> {
         Storages.stUsersStorage.rewrittenUser(updating)
         mStatistic.writeStatistic(
             updating,
-            StatisticType.NewComing
+            StatisticType.CommonAction
         )
-        return listOf(Executable.Dummy())
+        return emptyList()
     }
 }

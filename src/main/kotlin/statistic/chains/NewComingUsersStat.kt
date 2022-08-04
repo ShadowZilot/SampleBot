@@ -1,4 +1,4 @@
-package statistic
+package statistic.chains
 
 import chain.Chain
 import core.Updating
@@ -9,25 +9,29 @@ import handlers.OnCallbackGotten
 import helpers.ToMarkdownSupported
 import keyboard_markup.InlineButton
 import keyboard_markup.InlineKeyboardMarkup
+import statistic.period_time.StatisticsTimePeriod
 
-class ActionsStat(
-    private val mStatisticPeriod: StatisticsTimePeriod
+class NewComingUsersStat(
+    private val mStatisticPeriod: StatisticsTimePeriod,
 ) : Chain(
-    OnCallbackGotten("actionsStatistic")
+    OnCallbackGotten("newUsersStatistic")
 ) {
 
     override suspend fun executableChain(updating: Updating): List<Executable> {
         val statPeriod = mStatisticPeriod.statisticPeriodText(updating)
+        mStates.state(updating).editor(mStates).apply {
+            putString("statType", "newUsers")
+        }.commit()
         return listOf(
             AnswerToCallback(
                 mKey,
-                "Перехожу к статистике взаимодействий"
+                "Перехожу к статистике новых пользователей"
             ),
             EditTextMessage(
                 mKey,
                 buildString {
                     appendLine("*Статистика*")
-                    appendLine("*Активные пользователи*")
+                    appendLine("*Новые пользователи*")
                     append("C *${ToMarkdownSupported.Base(statPeriod.first).convertedString()}*")
                     appendLine(" по *${ToMarkdownSupported.Base(statPeriod.second).convertedString()}*")
                     appendLine()
@@ -37,22 +41,22 @@ class ActionsStat(
                     listOf(
                         listOf(
                             InlineButton(
-                                "Предыдущий",
+                                "Предыдущий промежуток",
                                 mCallbackData = "previousStatPeriod"
                             ),
                             InlineButton(
-                                "Следующий",
+                                "Следующий промежуток",
                                 mCallbackData = "nextStatPeriod"
                             )
                         ),
                         listOf(
                             InlineButton(
                                 "Указать начальную дату",
-                                mCallbackData = "selectEndStatDate"
+                                mCallbackData = "selectStartStatDate"
                             ),
                             InlineButton(
                                 "Указать конечную дату",
-                                mCallbackData = "selectStartStatDate"
+                                mCallbackData = "selectEndStatDate"
                             )
                         ),
                         listOf(

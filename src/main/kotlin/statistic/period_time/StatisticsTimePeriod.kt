@@ -1,4 +1,4 @@
-package statistic
+package statistic.period_time
 
 import core.Updating
 import staging.NotFoundStateValue

@@ -1,4 +1,4 @@
-package statistic
+package statistic.storage
 
 import core.Updating
 import helpers.storage.StorageHandling

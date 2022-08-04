@@ -1,4 +1,4 @@
-package statistic
+package statistic.storage
 
 import helpers.storage.JsonFile
 import helpers.storage.StorageHandling

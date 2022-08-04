@@ -12,7 +12,7 @@ import java.io.IOException
 
 class AnswerToCallback(
     private val mKey: String,
-    private val mMessage: String
+    private val mMessage: String = ""
 ) : Executable {
 
     override fun onFailure(call: Call, e: IOException) {}

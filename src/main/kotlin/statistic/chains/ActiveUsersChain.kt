@@ -1,4 +1,4 @@
-package statistic
+package statistic.chains
 
 import chain.Chain
 import core.Updating
@@ -9,19 +9,23 @@ import handlers.OnCallbackGotten
 import helpers.ToMarkdownSupported
 import keyboard_markup.InlineButton
 import keyboard_markup.InlineKeyboardMarkup
+import statistic.period_time.StatisticsTimePeriod
 
-class NewComingUsersStat(
+class ActiveUsersChain(
     private val mStatisticPeriod: StatisticsTimePeriod
 ) : Chain(
-    OnCallbackGotten("newUsersStatistic")
+    OnCallbackGotten("activeUsersStatistic")
 ) {
 
     override suspend fun executableChain(updating: Updating): List<Executable> {
         val statPeriod = mStatisticPeriod.statisticPeriodText(updating)
+        mStates.state(updating).editor(mStates).apply {
+            putString("statType", "activeUsers")
+        }.commit()
         return listOf(
             AnswerToCallback(
                 mKey,
-                "Перехожу к статистике новых пользователей"
+                "Перехожу к статистике активных пользователей"
             ),
             EditTextMessage(
                 mKey,
@@ -48,11 +52,11 @@ class NewComingUsersStat(
                         listOf(
                             InlineButton(
                                 "Указать начальную дату",
-                                mCallbackData = "selectEndStatDate"
+                                mCallbackData = "selectStartStatDate"
                             ),
                             InlineButton(
                                 "Указать конечную дату",
-                                mCallbackData = "selectStartStatDate"
+                                mCallbackData = "selectEndStatDate"
                             )
                         ),
                         listOf(
