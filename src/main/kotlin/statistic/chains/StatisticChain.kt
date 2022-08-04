@@ -2,6 +2,7 @@ package statistic.chains
 
 import Storages
 import core.BotChains
+import statistic.StatisticMessage
 import statistic.storage.StatisticHandling
 import statistic.period_time.StatisticsTimePeriod
 
@@ -33,13 +34,17 @@ class StatisticChain(
         ),
         PointStartDateChain(),
         PointStartDateChainFinal(
-            StatisticsTimePeriod.Base(
-                Storages.stStateStorage
+            StatisticMessage.Base(
+                Storages.stConfig.configValueString("botKey"),
+                Storages.stStateStorage,
+                Storages.stStatistics
             )
         ),
         CancelEnteringDateChain(
-            StatisticsTimePeriod.Base(
-                Storages.stStateStorage
+            StatisticMessage.Base(
+                Storages.stConfig.configValueString("botKey"),
+                Storages.stStateStorage,
+                Storages.stStatistics
             )
         ),
         NewComingChain(mStatistics),

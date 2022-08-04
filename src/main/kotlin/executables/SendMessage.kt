@@ -13,8 +13,8 @@ import updating.UserIdUpdating
 import java.io.IOException
 
 class SendMessage(
-    private val mMessage: String,
     private val mKey: String,
+    private val mMessage: String,
     private val mMarkup: KeyboardMarkup = KeyboardMarkup.Dummy(),
     private val mDisableLinkPreview: Boolean = false,
     private val mChatId: Long = -1L,

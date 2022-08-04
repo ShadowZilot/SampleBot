@@ -10,8 +10,8 @@ class StartGreeting : Chain(CommandEvent("/start")) {
     override suspend fun executableChain(updating: Updating): List<Executable> {
         return listOf(
             SendMessage(
-                "Привет\\!",
-                mKey
+                mKey,
+                "Привет\\!"
             )
         )
     }
