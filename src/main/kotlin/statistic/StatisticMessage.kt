@@ -110,7 +110,8 @@ interface StatisticMessage {
                             appendLine()
                             appendLine("Статистика")
                         },
-                        mMarkup = mStatKeyboard
+                        mMarkup = mStatKeyboard,
+                        mEditingMessageId = messageId
                     )
                     "actions" -> EditTextMessage(
                         mKey,
@@ -122,7 +123,8 @@ interface StatisticMessage {
                             appendLine()
                             appendLine("Статистика")
                         },
-                        mMarkup = mStatKeyboard
+                        mMarkup = mStatKeyboard,
+                        mEditingMessageId = messageId
                     )
                     "activeUsers" -> EditTextMessage(
                         mKey,
@@ -134,7 +136,8 @@ interface StatisticMessage {
                             appendLine()
                             appendLine("Статистика")
                         },
-                        mMarkup = mStatKeyboard
+                        mMarkup = mStatKeyboard,
+                        mEditingMessageId = messageId
                     )
                     else -> Executable.Dummy()
                 }

@@ -23,9 +23,9 @@ class StartViewingStatisticChain(
                 updating
             ),
             SendMessage(
+                mKey,
                 "*Статистика*\n" +
                         "Здесь представлены разделы по которым вы можете посмотреть статистику",
-                mKey,
                 mMarkup = InlineKeyboardMarkup(
                     listOf(
                         InlineButton(

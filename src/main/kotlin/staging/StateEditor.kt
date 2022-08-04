@@ -12,7 +12,7 @@ interface StateEditor {
 
     fun deleteValue(key: String)
 
-    fun commit() : State
+    fun commit(): State
 
     class Base(
         private val mStates: StateHandling,
@@ -22,24 +22,44 @@ interface StateEditor {
         private val mDeleteValues = mutableListOf<String>()
 
         override fun putString(key: String, data: String) {
+            if (mNewValues.containsKey(key)) {
+                mNewValues.remove(mNewValues.find {
+                    it.first == key
+                })
+            }
             mNewValues.add(
                 Pair(key, data)
             )
         }
 
         override fun putInt(key: String, data: Int) {
+            if (mNewValues.containsKey(key)) {
+                mNewValues.remove(mNewValues.find {
+                    it.first == key
+                })
+            }
             mNewValues.add(
                 Pair(key, data)
             )
         }
 
         override fun putBoolean(key: String, data: Boolean) {
+            if (mNewValues.containsKey(key)) {
+                mNewValues.remove(mNewValues.find {
+                    it.first == key
+                })
+            }
             mNewValues.add(
                 Pair(key, data)
             )
         }
 
         override fun putLong(key: String, data: Long) {
+            if (mNewValues.containsKey(key)) {
+                mNewValues.remove(mNewValues.find {
+                    it.first == key
+                })
+            }
             mNewValues.add(
                 Pair(key, data)
             )
@@ -59,4 +79,13 @@ interface StateEditor {
             return newState
         }
     }
+}
+
+fun List<Pair<String, Any>>.containsKey(key: String): Boolean {
+    for (i in indices) {
+        if (this[i].first == key) {
+            return true
+        }
+    }
+    return false
 }

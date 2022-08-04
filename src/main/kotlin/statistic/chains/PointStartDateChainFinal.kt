@@ -6,7 +6,6 @@ import executables.DeleteMessage
 import executables.EditTextMessage
 import executables.Executable
 import handlers.OnTextGotten
-import helpers.ToMarkdownSupported
 import helpers.convertToVertical
 import keyboard_markup.InlineButton
 import keyboard_markup.InlineKeyboardMarkup
