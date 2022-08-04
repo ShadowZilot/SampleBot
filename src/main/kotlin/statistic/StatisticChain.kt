@@ -1,5 +1,6 @@
 package statistic
 
+import Storages
 import core.BotChains
 
 class StatisticChain(
@@ -7,12 +8,16 @@ class StatisticChain(
 ) : BotChains {
 
     override fun chains() = listOf(
-        NewComingChain(mStatistics),
-        CommonActionChain(mStatistics),
-        StartViewingStatisticChain(),
+        StartViewingStatisticChain(
+            StatisticsTimePeriod.Base(
+                Storages.stStateStorage
+            )
+        ),
         ActiveUsersChain(),
         BackToStatViewing(),
         NewComingUsersStat(),
-        ActionsStat()
+        ActionsStat(),
+        NewComingChain(mStatistics),
+        CommonActionChain(mStatistics)
     )
 }

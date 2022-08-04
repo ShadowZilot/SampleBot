@@ -6,7 +6,6 @@ import executables.AnswerToCallback
 import executables.EditTextMessage
 import executables.Executable
 import handlers.OnCallbackGotten
-import helpers.convertToVertical
 import keyboard_markup.InlineButton
 import keyboard_markup.InlineKeyboardMarkup
 
@@ -25,11 +24,33 @@ class ActionsStat : Chain(
                 "Здесь скоро будет показываться статистика",
                 mMarkup = InlineKeyboardMarkup(
                     listOf(
-                        InlineButton(
-                            "Вернуться",
-                            mCallbackData = "backToStatistic"
+                        listOf(
+                            InlineButton(
+                                "Предыдущий",
+                                mCallbackData = "previousStatPeriod"
+                            ),
+                            InlineButton(
+                                "Следующий",
+                                mCallbackData = "nextStatPeriod"
+                            )
+                        ),
+                        listOf(
+                            InlineButton(
+                                "",
+                                mCallbackData = "selectEndStatDate"
+                            ),
+                            InlineButton(
+                                "",
+                                mCallbackData = "selectStartStatDate"
+                            )
+                        ),
+                        listOf(
+                            InlineButton(
+                                "Вернуться",
+                                mCallbackData = "backToStatistic"
+                            )
                         )
-                    ).convertToVertical()
+                    )
                 )
             )
         )

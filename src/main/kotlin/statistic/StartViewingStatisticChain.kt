@@ -10,9 +10,12 @@ import helpers.convertToVertical
 import keyboard_markup.InlineButton
 import keyboard_markup.InlineKeyboardMarkup
 
-class StartViewingStatisticChain : Chain(CommandEvent("/statistic")) {
+class StartViewingStatisticChain(
+    private val mStatPeriods: StatisticsTimePeriod
+) : Chain(CommandEvent("/statistic")) {
 
     override suspend fun executableChain(updating: Updating): List<Executable> {
+        mStatPeriods.setupDefaultPeriod(updating)
         return listOf(
             DeleteMessage(
                 mKey,
