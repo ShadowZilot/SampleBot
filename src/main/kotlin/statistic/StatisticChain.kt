@@ -13,10 +13,22 @@ class StatisticChain(
                 Storages.stStateStorage
             )
         ),
-        ActiveUsersChain(),
+        ActiveUsersChain(
+            StatisticsTimePeriod.Base(
+                Storages.stStateStorage
+            )
+        ),
         BackToStatViewing(),
-        NewComingUsersStat(),
-        ActionsStat(),
+        NewComingUsersStat(
+            StatisticsTimePeriod.Base(
+                Storages.stStateStorage
+            )
+        ),
+        ActionsStat(
+            StatisticsTimePeriod.Base(
+                Storages.stStateStorage
+            )
+        ),
         NewComingChain(mStatistics),
         CommonActionChain(mStatistics)
     )

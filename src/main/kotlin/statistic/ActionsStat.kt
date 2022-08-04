@@ -6,14 +6,18 @@ import executables.AnswerToCallback
 import executables.EditTextMessage
 import executables.Executable
 import handlers.OnCallbackGotten
+import helpers.ToMarkdownSupported
 import keyboard_markup.InlineButton
 import keyboard_markup.InlineKeyboardMarkup
 
-class ActionsStat : Chain(
+class ActionsStat(
+    private val mStatisticPeriod: StatisticsTimePeriod
+) : Chain(
     OnCallbackGotten("actionsStatistic")
 ) {
 
     override suspend fun executableChain(updating: Updating): List<Executable> {
+        val statPeriod = mStatisticPeriod.statisticPeriodText(updating)
         return listOf(
             AnswerToCallback(
                 mKey,
@@ -21,7 +25,14 @@ class ActionsStat : Chain(
             ),
             EditTextMessage(
                 mKey,
-                "Здесь скоро будет показываться статистика",
+                buildString {
+                    appendLine("*Статистика*")
+                    appendLine("*Активные пользователи*")
+                    append("C *${ToMarkdownSupported.Base(statPeriod.first).convertedString()}*")
+                    appendLine(" по *${ToMarkdownSupported.Base(statPeriod.second).convertedString()}*")
+                    appendLine()
+                    appendLine("Статистика")
+                },
                 mMarkup = InlineKeyboardMarkup(
                     listOf(
                         listOf(
@@ -36,11 +47,11 @@ class ActionsStat : Chain(
                         ),
                         listOf(
                             InlineButton(
-                                "",
+                                "Указать начальную дату",
                                 mCallbackData = "selectEndStatDate"
                             ),
                             InlineButton(
-                                "",
+                                "Указать конечную дату",
                                 mCallbackData = "selectStartStatDate"
                             )
                         ),

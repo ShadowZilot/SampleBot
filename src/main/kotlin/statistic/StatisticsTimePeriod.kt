@@ -3,10 +3,14 @@ package statistic
 import core.Updating
 import staging.NotFoundStateValue
 import staging.StateHandling
+import java.text.SimpleDateFormat
+import java.util.*
 
 interface StatisticsTimePeriod {
 
     fun setupDefaultPeriod(updating: Updating)
+
+    fun statisticPeriodText(updating: Updating): Pair<String, String>
 
     class Base(
         private val mStates: StateHandling
@@ -34,6 +38,18 @@ interface StatisticsTimePeriod {
                     )
                 }.commit()
             }
+        }
+
+        override fun statisticPeriodText(updating: Updating): Pair<String, String> {
+            val startDate = mStates.state(updating).long("statStartPeriodDate")
+            val endDate = mStates.state(updating).long("statEndPeriodDate")
+            val formatter = SimpleDateFormat(
+                "dd.LL.yyyy"
+            )
+            return Pair(
+                formatter.format(Date(startDate)),
+                formatter.format(Date(endDate))
+            )
         }
     }
 }
