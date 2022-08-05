@@ -32,6 +32,26 @@ class StatisticChain(
                 Storages.stStateStorage
             )
         ),
+        GoToNextStatPeriod(
+            StatisticsTimePeriod.Base(
+                Storages.stStateStorage
+            ),
+            StatisticMessage.Base(
+                Storages.stConfig.configValueString("botKey"),
+                Storages.stStateStorage,
+                Storages.stStatistics
+            )
+        ),
+        GoToPreviousStatPeriod(
+            StatisticsTimePeriod.Base(
+                Storages.stStateStorage
+            ),
+            StatisticMessage.Base(
+                Storages.stConfig.configValueString("botKey"),
+                Storages.stStateStorage,
+                Storages.stStatistics
+            )
+        ),
         PointStartDateChain(),
         PointStartDateChainFinal(
             StatisticMessage.Base(

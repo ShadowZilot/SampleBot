@@ -12,6 +12,10 @@ interface StatisticsTimePeriod {
 
     fun statisticPeriodText(updating: Updating): Pair<String, String>
 
+    fun goToNextPeriod(updating: Updating)
+
+    fun goToPreviousPeriod(updating: Updating)
+
     class Base(
         private val mStates: StateHandling
     ) : StatisticsTimePeriod {
@@ -50,6 +54,38 @@ interface StatisticsTimePeriod {
                 formatter.format(Date(startDate)),
                 formatter.format(Date(endDate))
             )
+        }
+
+        override fun goToNextPeriod(updating: Updating) {
+            val startDate = mStates.state(updating).long("statStartPeriodDate")
+            val endDate = mStates.state(updating).long("statEndPeriodDate")
+            val newEndDate = endDate + (endDate - startDate)
+            mStates.state(updating).editor(mStates).apply {
+                putLong(
+                    "statStartPeriodDate",
+                    endDate
+                )
+                putLong(
+                    "statEndPeriodDate",
+                    newEndDate
+                )
+            }.commit()
+        }
+
+        override fun goToPreviousPeriod(updating: Updating) {
+            val startDate = mStates.state(updating).long("statStartPeriodDate")
+            val endDate = mStates.state(updating).long("statEndPeriodDate")
+            val newStartDate = startDate - (endDate - startDate)
+            mStates.state(updating).editor(mStates).apply {
+                putLong(
+                    "statEndPeriodDate",
+                    startDate
+                )
+                putLong(
+                    "statStartPeriodDate",
+                    newStartDate
+                )
+            }.commit()
         }
     }
 }
