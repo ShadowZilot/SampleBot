@@ -1,0 +1,27 @@
+[
+  {
+    "codes": [
+      {
+        "code": "statType",
+        "data": "newUsers"
+      },
+      {
+        "code": "statStartPeriodDate",
+        "data": 1659474000000
+      },
+      {
+        "code": "statEndPeriodDate",
+        "data": 1659560400000
+      },
+      {
+        "code": "statMessageId",
+        "data": 346
+      }
+    ],
+    "user_id": 1129163878
+  },
+  {
+    "codes": [],
+    "user_id": 1047301531
+  }
+]

@@ -8,6 +8,9 @@ import helpers.ToMarkdownSupported
 import keyboard_markup.InlineButton
 import keyboard_markup.InlineKeyboardMarkup
 import staging.StateHandling
+import statistic.form_stat.StatFormForActions
+import statistic.form_stat.StatFormForActiveUsers
+import statistic.form_stat.StatFormForNewComing
 import statistic.period_time.StatisticsTimePeriod
 import statistic.storage.StatisticHandling
 
@@ -68,7 +71,8 @@ interface StatisticMessage {
                             append("C *${ToMarkdownSupported.Base(statPeriod.first).convertedString()}*")
                             appendLine(" по *${ToMarkdownSupported.Base(statPeriod.second).convertedString()}*")
                             appendLine()
-                            appendLine("Статистика")
+                            appendLine("Новые пользователи за это промежуток\\: ")
+                            append("${StatFormForNewComing(mStatistic, mPeriod).statisticValue(updating)}")
                         },
                         mMarkup = mStatKeyboard
                     )
@@ -80,7 +84,8 @@ interface StatisticMessage {
                             append("C *${ToMarkdownSupported.Base(statPeriod.first).convertedString()}*")
                             appendLine(" по *${ToMarkdownSupported.Base(statPeriod.second).convertedString()}*")
                             appendLine()
-                            appendLine("Статистика")
+                            appendLine("Взаимодействия за это промежуток\\: ")
+                            append("${StatFormForActions(mStatistic, mPeriod).statisticValue(updating)}")
                         },
                         mMarkup = mStatKeyboard
                     )
@@ -92,7 +97,8 @@ interface StatisticMessage {
                             append("C *${ToMarkdownSupported.Base(statPeriod.first).convertedString()}*")
                             appendLine(" по *${ToMarkdownSupported.Base(statPeriod.second).convertedString()}*")
                             appendLine()
-                            appendLine("Статистика")
+                            appendLine("Активные пользователи за это промежуток\\: ")
+                            append("${StatFormForActiveUsers(mStatistic, mPeriod).statisticValue(updating)}")
                         },
                         mMarkup = mStatKeyboard
                     )
@@ -108,7 +114,8 @@ interface StatisticMessage {
                             append("C *${ToMarkdownSupported.Base(statPeriod.first).convertedString()}*")
                             appendLine(" по *${ToMarkdownSupported.Base(statPeriod.second).convertedString()}*")
                             appendLine()
-                            appendLine("Статистика")
+                            appendLine("Новые пользователи за это промежуток\\: ")
+                            append("${StatFormForNewComing(mStatistic, mPeriod).statisticValue(updating)}")
                         },
                         mMarkup = mStatKeyboard,
                         mEditingMessageId = messageId
@@ -121,7 +128,8 @@ interface StatisticMessage {
                             append("C *${ToMarkdownSupported.Base(statPeriod.first).convertedString()}*")
                             appendLine(" по *${ToMarkdownSupported.Base(statPeriod.second).convertedString()}*")
                             appendLine()
-                            appendLine("Статистика")
+                            appendLine("Взаимодействия за это промежуток\\: ")
+                            append("${StatFormForActions(mStatistic, mPeriod).statisticValue(updating)}")
                         },
                         mMarkup = mStatKeyboard,
                         mEditingMessageId = messageId
@@ -134,7 +142,8 @@ interface StatisticMessage {
                             append("C *${ToMarkdownSupported.Base(statPeriod.first).convertedString()}*")
                             appendLine(" по *${ToMarkdownSupported.Base(statPeriod.second).convertedString()}*")
                             appendLine()
-                            appendLine("Статистика")
+                            appendLine("Активные пользователи за это промежуток\\: ")
+                            append("${StatFormForActiveUsers(mStatistic, mPeriod).statisticValue(updating)}")
                         },
                         mMarkup = mStatKeyboard,
                         mEditingMessageId = messageId

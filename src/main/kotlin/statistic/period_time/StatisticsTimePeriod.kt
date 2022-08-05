@@ -8,6 +8,8 @@ import java.util.*
 
 interface StatisticsTimePeriod {
 
+    fun dateRange(updating: Updating): LongRange
+
     fun setupDefaultPeriod(updating: Updating)
 
     fun statisticPeriodText(updating: Updating): Pair<String, String>
@@ -19,6 +21,13 @@ interface StatisticsTimePeriod {
     class Base(
         private val mStates: StateHandling
     ) : StatisticsTimePeriod {
+        override fun dateRange(updating: Updating): LongRange {
+            return mStates
+                .state(updating)
+                .long("statStartPeriodDate")..mStates
+                .state(updating)
+                .long("statEndPeriodDate")
+        }
 
         override fun setupDefaultPeriod(updating: Updating) {
             val currentTime = System.currentTimeMillis()

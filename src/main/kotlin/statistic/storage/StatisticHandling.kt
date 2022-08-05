@@ -2,10 +2,13 @@ package statistic.storage
 
 import core.Updating
 import helpers.storage.StorageHandling
+import statistic.form_stat.IsStatItemFit
 import updating.UpdatingChatId
 import updating.UserIdUpdating
 
 interface StatisticHandling {
+
+    fun statSliceByDate(statType: StatisticType, dateRange: LongRange): List<StatisticItem>
 
     fun writeStatistic(
         userId: Long,
@@ -24,6 +27,20 @@ interface StatisticHandling {
         private val mStore: StorageHandling<StatisticItem>
     ) : StatisticHandling {
         private val mStates = mStore.load()
+
+        override fun statSliceByDate(statType: StatisticType, dateRange: LongRange): List<StatisticItem> {
+            val finder = IsStatItemFit(
+                dateRange,
+                statType
+            )
+            return mutableListOf<StatisticItem>().apply {
+                for (i in mStates.indices) {
+                    if (mStates[i].map(finder)) {
+                        add(mStates[i])
+                    }
+                }
+            }
+        }
 
         override fun writeStatistic(
             userId: Long,

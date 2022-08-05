@@ -17,19 +17,25 @@ class StatisticChain(
             )
         ),
         ActiveUsersChain(
-            StatisticsTimePeriod.Base(
-                Storages.stStateStorage
+            StatisticMessage.Base(
+                Storages.stConfig.configValueString("botKey"),
+                Storages.stStateStorage,
+                Storages.stStatistics
             )
         ),
         BackToStatViewing(),
         NewComingUsersStat(
-            StatisticsTimePeriod.Base(
-                Storages.stStateStorage
+            StatisticMessage.Base(
+                Storages.stConfig.configValueString("botKey"),
+                Storages.stStateStorage,
+                Storages.stStatistics
             )
         ),
         ActionsStat(
-            StatisticsTimePeriod.Base(
-                Storages.stStateStorage
+            StatisticMessage.Base(
+                Storages.stConfig.configValueString("botKey"),
+                Storages.stStateStorage,
+                Storages.stStatistics
             )
         ),
         GoToNextStatPeriod(
