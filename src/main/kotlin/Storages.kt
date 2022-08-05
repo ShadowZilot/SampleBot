@@ -1,16 +1,26 @@
+import admin_bot_functions.admins_storage.AdminToJson
+import admin_bot_functions.admins_storage.AdminsFileHandling
+import admin_bot_functions.admins_storage.AdminsHandling
 import configuration.Config
 import helpers.storage.JsonFile
 import helpers.storage.StatesFileHelping
 import helpers.storage.UserFileHelping
 import staging.StateHandling
-import statistic.storage.StatisticFileHandling
-import statistic.storage.StatisticHandling
-import statistic.storage.StatisticItemToJson
+import admin_bot_functions.statistic.storage.StatisticFileHandling
+import admin_bot_functions.statistic.storage.StatisticHandling
+import admin_bot_functions.statistic.storage.StatisticItemToJson
 import users.AllUsersStorage
 import users.UserToJson
 import java.io.File
 
 object Storages {
+    val stAdmins = AdminsHandling.Base(
+        AdminsFileHandling(
+            JsonFile.Base(
+                File("admins.json")
+            ), AdminToJson()
+        )
+    )
     val stConfig = Config.Base(File("${sBasePath}config.json"))
     val stStateStorage = StateHandling.Base(
         StatesFileHelping(
