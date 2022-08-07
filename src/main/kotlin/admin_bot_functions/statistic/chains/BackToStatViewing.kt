@@ -36,6 +36,10 @@ class BackToStatViewing : Chain(
                         InlineButton(
                             "Взаимодействия",
                             mCallbackData = "actionsStatistic"
+                        ),
+                        InlineButton(
+                            "Вернуться",
+                            mCallbackData = "backToAdminPanel"
                         )
                     ).convertToVertical()
                 )

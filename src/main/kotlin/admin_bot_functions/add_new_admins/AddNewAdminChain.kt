@@ -14,7 +14,7 @@ class AddNewAdminChain: Chain(
     override suspend fun executableChain(updating: Updating): List<Executable> {
         mStates.state(updating).editor(mStates).apply {
             putBoolean("isAwaitForBotPassword", true)
-        }
+        }.commit()
         return listOf(
             DeleteMessage(
                 mKey,

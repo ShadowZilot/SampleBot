@@ -15,8 +15,10 @@ interface AdminsHandling {
         private val mAdmins = mStore.load()
 
         override fun addNewAdmin(updating: Updating) {
-            mAdmins.add(Admin(updating))
-            mStore.cache(mAdmins)
+            if (!isUserAdmin(updating)) {
+                mAdmins.add(Admin(updating))
+                mStore.cache(mAdmins)
+            }
         }
 
         override fun isUserAdmin(updating: Updating): Boolean {

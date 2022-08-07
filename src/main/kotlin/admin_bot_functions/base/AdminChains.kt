@@ -1,6 +1,8 @@
 package admin_bot_functions.base
 
 import Storages
+import admin_bot_functions.base.chains.BackToAdminPanelChain
+import admin_bot_functions.base.chains.ViewAdminPanelChain
 import admin_bot_functions.statistic.StatisticMessage
 import admin_bot_functions.statistic.chains.*
 import admin_bot_functions.statistic.period_time.StatisticsTimePeriod
@@ -9,6 +11,8 @@ import core.BotChains
 
 class AdminChains : BotChains {
     override fun chains() = listOf(
+        ViewAdminPanelChain(),
+        BackToAdminPanelChain(),
         StartViewingStatisticChain(
             StatisticsTimePeriod.Base(
                 Storages.stStateStorage

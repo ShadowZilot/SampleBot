@@ -1,27 +1,33 @@
-[
-  {
-    "codes": [
-      {
-        "code": "statType",
-        "data": "newUsers"
-      },
-      {
-        "code": "statStartPeriodDate",
-        "data": 1659474000000
-      },
-      {
-        "code": "statEndPeriodDate",
-        "data": 1659560400000
-      },
-      {
-        "code": "statMessageId",
-        "data": 346
-      }
-    ],
-    "user_id": 1129163878
-  },
-  {
-    "codes": [],
-    "user_id": 1047301531
-  }
-]
+[{
+  "codes": [
+    {
+      "code": "addNewAdminMessage",
+      "data": 426
+    },
+    {
+      "code": "isAwaitForBotPassword",
+      "data": true
+    },
+    {
+      "code": "statType",
+      "data": "actions"
+    },
+    {
+      "code": "adminPanelMessage",
+      "data": 421
+    },
+    {
+      "code": "statEndPeriodDate",
+      "data": 1659906000000
+    },
+    {
+      "code": "statStartPeriodDate",
+      "data": 1659733200000
+    },
+    {
+      "code": "statMessageId",
+      "data": 418
+    }
+  ],
+  "user_id": 1129163878
+}]

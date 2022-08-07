@@ -12,7 +12,7 @@ abstract class Chain(
     protected val mKey = Storages.stConfig.configValueString("botKey")
     protected val mStates = Storages.stStateStorage
 
-    final suspend fun checkEvent(updating: Updating) : Boolean {
+    open fun checkEvent(updating: Updating) : Boolean {
         return try {
             updating.map(mEvent)
             true

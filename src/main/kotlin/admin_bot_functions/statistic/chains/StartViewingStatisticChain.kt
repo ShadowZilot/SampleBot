@@ -10,10 +10,11 @@ import helpers.convertToVertical
 import keyboard_markup.InlineButton
 import keyboard_markup.InlineKeyboardMarkup
 import admin_bot_functions.statistic.period_time.StatisticsTimePeriod
+import handlers.OnCallbackGotten
 
 class StartViewingStatisticChain(
     private val mStatPeriods: StatisticsTimePeriod
-) : Chain(CommandEvent("/admin_bot_functions/statistic_functions/statistic")) {
+) : Chain(OnCallbackGotten("startViewStat")) {
 
     override suspend fun executableChain(updating: Updating): List<Executable> {
         mStatPeriods.setupDefaultPeriod(updating)
@@ -39,6 +40,10 @@ class StartViewingStatisticChain(
                         InlineButton(
                             "Взаимодействия",
                             mCallbackData = "actionsStatistic"
+                        ),
+                        InlineButton(
+                            "Вернуться",
+                            mCallbackData = "backToAdminPanel"
                         )
                     ).convertToVertical()
                 )
