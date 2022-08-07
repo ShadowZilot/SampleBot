@@ -10,6 +10,8 @@ interface StatisticHandling {
 
     fun statSliceByDate(statType: StatisticType, dateRange: LongRange): List<StatisticItem>
 
+    fun allStats(): List<StatisticItem>
+
     fun writeStatistic(
         userId: Long,
         chatId: Long,
@@ -41,6 +43,8 @@ interface StatisticHandling {
                 }
             }
         }
+
+        override fun allStats() = mStates
 
         override fun writeStatistic(
             userId: Long,

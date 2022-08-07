@@ -1,16 +1,15 @@
 package admin_bot_functions.statistic.chains
 
+import admin_bot_functions.statistic.period_time.StatisticsTimePeriod
 import chain.Chain
 import core.Updating
 import executables.DeleteMessage
 import executables.Executable
 import executables.SendMessage
-import handlers.CommandEvent
+import handlers.OnCallbackGotten
 import helpers.convertToVertical
 import keyboard_markup.InlineButton
 import keyboard_markup.InlineKeyboardMarkup
-import admin_bot_functions.statistic.period_time.StatisticsTimePeriod
-import handlers.OnCallbackGotten
 
 class StartViewingStatisticChain(
     private val mStatPeriods: StatisticsTimePeriod
@@ -40,6 +39,14 @@ class StartViewingStatisticChain(
                         InlineButton(
                             "Взаимодействия",
                             mCallbackData = "actionsStatistic"
+                        ),
+                        InlineButton(
+                            "Пользователи за 30 минут",
+                            mCallbackData = "realTimeUsers",
+                        ),
+                        InlineButton(
+                            "Все пользователи",
+                            mCallbackData = "allTimeUsers"
                         ),
                         InlineButton(
                             "Вернуться",

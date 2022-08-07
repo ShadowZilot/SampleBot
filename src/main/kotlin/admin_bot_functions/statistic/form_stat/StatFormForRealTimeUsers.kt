@@ -1,19 +1,18 @@
 package admin_bot_functions.statistic.form_stat
 
-import core.Updating
-import admin_bot_functions.statistic.period_time.StatisticsTimePeriod
 import admin_bot_functions.statistic.storage.StatisticHandling
 import admin_bot_functions.statistic.storage.StatisticType
+import core.Updating
 
-class StatFormForActiveUsers(
-    private val mStats: StatisticHandling,
-    private val mPeriod: StatisticsTimePeriod
+class StatFormForRealTimeUsers(
+    private val mStats: StatisticHandling
 ) : StatisticForm {
 
     override fun statisticValue(updating: Updating): Int {
+        val time = System.currentTimeMillis()
         val slice = mStats.statSliceByDate(
             StatisticType.CommonAction,
-            mPeriod.dateRange(updating)
+            (time - 1800_000)..time
         )
         val users = mutableListOf<Long>()
         for (i in slice.indices) {

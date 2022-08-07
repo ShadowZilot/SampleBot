@@ -2,6 +2,7 @@ package admin_bot_functions.base.chains
 
 import chain.Chain
 import core.Updating
+import executables.AnswerToCallback
 import executables.EditTextMessage
 import executables.Executable
 import handlers.OnCallbackGotten
@@ -14,6 +15,10 @@ class BackToAdminPanelChain : Chain(
 ) {
     override suspend fun executableChain(updating: Updating): List<Executable> {
         return listOf(
+            AnswerToCallback(
+                mKey,
+                "Перехожу к панели админа"
+            ),
             EditTextMessage(
                 mKey,
                 buildString {

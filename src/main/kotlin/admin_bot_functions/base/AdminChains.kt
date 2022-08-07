@@ -50,6 +50,12 @@ class AdminChains : BotChains {
                 Storages.stStatistics
             )
         ),
+        AllTimeUsersChain(
+            Storages.stStatistics
+        ),
+        RealTimeUsersChain(
+            Storages.stStatistics
+        ),
         GoToPreviousStatPeriod(
             StatisticsTimePeriod.Base(
                 Storages.stStateStorage

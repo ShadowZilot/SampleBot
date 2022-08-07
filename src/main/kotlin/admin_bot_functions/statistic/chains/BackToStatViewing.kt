@@ -38,6 +38,14 @@ class BackToStatViewing : Chain(
                             mCallbackData = "actionsStatistic"
                         ),
                         InlineButton(
+                            "Пользователи за 30 минут",
+                            mCallbackData = "realTimeUsers",
+                        ),
+                        InlineButton(
+                            "Все пользователи",
+                            mCallbackData = "allTimeUsers"
+                        ),
+                        InlineButton(
                             "Вернуться",
                             mCallbackData = "backToAdminPanel"
                         )

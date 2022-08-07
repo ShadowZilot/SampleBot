@@ -1,16 +1,20 @@
 [{
   "codes": [
     {
-      "code": "statType",
-      "data": "newUsers"
-    },
-    {
       "code": "statStartPeriodDate",
-      "data": 1659819600000
+      "data": 1659301200000
     },
     {
       "code": "statMessageId",
-      "data": 435
+      "data": 445
+    },
+    {
+      "code": "statType",
+      "data": "actions"
+    },
+    {
+      "code": "statEndPeriodDate",
+      "data": 1659906000000
     },
     {
       "code": "adminPanelMessage",
@@ -19,10 +23,6 @@
     {
       "code": "addNewAdminMessage",
       "data": 426
-    },
-    {
-      "code": "statEndPeriodDate",
-      "data": 1659906000000
     }
   ],
   "user_id": 1129163878
