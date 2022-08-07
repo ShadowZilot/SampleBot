@@ -21,7 +21,7 @@ class AddNewAdminChainFinal(
             if (updating.map(UpdatingMessage()) == Storages.stConfig.configValueString("botPassword")) {
                 mStates.state(updating).editor(mStates).apply {
                     deleteValue("isAwaitForBotPassword")
-                }
+                }.commit()
                 mAdminsHandling.addNewAdmin(updating)
                 listOf(
                     DeleteMessage(

@@ -50,7 +50,7 @@ class PointStartDateChainFinal(
                                 )
                             ).convertToVertical()
                         ),
-                        mEditingMessageId = mStates.state(updating).long("statMessageId")
+                        mEditingMessageId = mStates.state(updating).int("statMessageId").toLong()
                     )
                 )
             }

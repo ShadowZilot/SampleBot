@@ -13,11 +13,15 @@ class NewComingChain(
 ) : Chain(CommandEvent("/start")) {
 
     override suspend fun executableChain(updating: Updating): List<Executable> {
-        Storages.stUsersStorage.rewrittenUser(updating)
-        mStatistic.writeStatistic(
-            updating,
-            StatisticType.NewComing
-        )
+        try {
+            Storages.stUsersStorage.user(updating)
+        } catch (e: Exception) {
+            Storages.stUsersStorage.rewrittenUser(updating)
+            mStatistic.writeStatistic(
+                updating,
+                StatisticType.NewComing
+            )
+        }
         return listOf(Executable.Dummy())
     }
 }
