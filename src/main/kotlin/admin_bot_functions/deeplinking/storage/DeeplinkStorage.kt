@@ -21,16 +21,16 @@ interface DeeplinkStorage {
     ) : DeeplinkStorage {
         private val mLinks = mStore.load()
 
-        override fun deeplinkPageCount() = ceil(mLinks.size % 5.0).toInt()
+        override fun deeplinkPageCount() = ceil(mLinks.size / 5.0).toInt()
 
         override fun deeplinkGrade(order: Int): List<Deeplink> {
             return if (mLinks.isNotEmpty()) {
                 mLinks.reversed().subList(
                     order * 5 - 5,
-                    if (order * 5 - 1 > mLinks.size) {
-                        mLinks.size - 1
+                    if (order * 5 > mLinks.size) {
+                        mLinks.size
                     } else {
-                        order * 5 - 1
+                        order * 5
                     }
                 )
             } else {

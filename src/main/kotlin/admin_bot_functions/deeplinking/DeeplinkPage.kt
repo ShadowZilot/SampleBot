@@ -25,11 +25,14 @@ interface DeeplinkPage {
                                 if (page == 1) {
                                     i + 1
                                 } else {
-                                    i + page * 5
+                                    ((page * 5) - 5) + (i + 1)
                                 }
                             )
                         )
                     )
+                    if (i != deeplink.size - 1) {
+                        appendLine()
+                    }
                 }
             } else {
                 appendLine()

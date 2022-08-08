@@ -7,13 +7,6 @@
     "secondName": "Туллий"
   },
   {
-    "firstName": "Егор",
-    "id": 5258779774,
-    "isStarted": false,
-    "username": "HumanDevelopingSoft",
-    "secondName": "Пономарев"
-  },
-  {
     "firstName": "Алексей \u201cTrendkross\u201d",
     "id": 5133059266,
     "isStarted": false,
@@ -25,13 +18,6 @@
     "id": 941010212,
     "isStarted": false,
     "username": "papopup",
-    "secondName": ""
-  },
-  {
-    "firstName": "",
-    "id": 0,
-    "isStarted": false,
-    "username": "",
     "secondName": ""
   }
 ]
