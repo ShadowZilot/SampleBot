@@ -3,6 +3,8 @@ package admin_bot_functions.base
 import Storages
 import admin_bot_functions.base.chains.BackToAdminPanelChain
 import admin_bot_functions.base.chains.ViewAdminPanelChain
+import admin_bot_functions.deeplinking.DeeplinkPageMessage
+import admin_bot_functions.deeplinking.chain.GoToDeeplinkPagesChain
 import admin_bot_functions.statistic.StatisticMessage
 import admin_bot_functions.statistic.chains.*
 import admin_bot_functions.statistic.period_time.StatisticsTimePeriod
@@ -89,6 +91,12 @@ class AdminChains : BotChains {
                 Storages.stStatistics
             )
         ),
+        GoToDeeplinkPagesChain(
+            DeeplinkPageMessage.Base(
+                Storages.stConfig.configValueString("botKey"),
+                Storages.stDeeplink
+            )
+        )
     ).map {
         ChainBlocking(it, IsUserAdmin(Storages.stAdmins))
     }

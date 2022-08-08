@@ -1,6 +1,14 @@
 [{
   "codes": [
     {
+      "code": "deeplinkPageNumber",
+      "data": 1
+    },
+    {
+      "code": "adminPanelMessage",
+      "data": 495
+    },
+    {
       "code": "statStartPeriodDate",
       "data": 1659301200000
     },
@@ -15,10 +23,6 @@
     {
       "code": "statEndPeriodDate",
       "data": 1659906000000
-    },
-    {
-      "code": "adminPanelMessage",
-      "data": 434
     },
     {
       "code": "addNewAdminMessage",

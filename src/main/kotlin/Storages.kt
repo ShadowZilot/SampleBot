@@ -1,6 +1,9 @@
 import admin_bot_functions.admins_storage.AdminToJson
 import admin_bot_functions.admins_storage.AdminsFileHandling
 import admin_bot_functions.admins_storage.AdminsHandling
+import admin_bot_functions.deeplinking.handling.DeeplinkToJson
+import admin_bot_functions.deeplinking.storage.DeeplinkFileHandling
+import admin_bot_functions.deeplinking.storage.DeeplinkStorage
 import configuration.Config
 import helpers.storage.JsonFile
 import helpers.storage.StatesFileHelping
@@ -17,7 +20,7 @@ object Storages {
     val stAdmins = AdminsHandling.Base(
         AdminsFileHandling(
             JsonFile.Base(
-                File("admins.json")
+                File("${sBasePath}admins.json")
             ), AdminToJson()
         )
     )
@@ -38,5 +41,12 @@ object Storages {
             JsonFile.Base(File("${sBasePath}statistic.json")),
             StatisticItemToJson()
         )
+    )
+    val stDeeplink = DeeplinkStorage.Base(
+        DeeplinkFileHandling(
+            JsonFile.Base(File("${sBasePath}deeplink.json")),
+            DeeplinkToJson()
+        ),
+        stConfig.configValueString("botName")
     )
 }

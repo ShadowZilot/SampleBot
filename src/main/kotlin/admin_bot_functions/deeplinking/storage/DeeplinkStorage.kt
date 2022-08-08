@@ -3,8 +3,13 @@ package admin_bot_functions.deeplinking.storage
 import admin_bot_functions.deeplinking.handling.GeneratingDeeplinkCode
 import admin_bot_functions.deeplinking.handling.PlusUserToDeeplink
 import admin_bot_functions.deeplinking.handling.SameLinkCode
+import kotlin.math.ceil
 
 interface DeeplinkStorage {
+
+    fun deeplinkPageCount(): Int
+
+    fun deeplinkGrade(order: Int): List<Deeplink>
 
     fun createNewDeeplink(name: String)
 
@@ -15,6 +20,23 @@ interface DeeplinkStorage {
         private val mBotName: String
     ) : DeeplinkStorage {
         private val mLinks = mStore.load()
+
+        override fun deeplinkPageCount() = ceil(mLinks.size % 5.0).toInt()
+
+        override fun deeplinkGrade(order: Int): List<Deeplink> {
+            return if (mLinks.isNotEmpty()) {
+                mLinks.reversed().subList(
+                    order * 5 - 5,
+                    if (order * 5 - 1 > mLinks.size) {
+                        mLinks.size - 1
+                    } else {
+                        order * 5 - 1
+                    }
+                )
+            } else {
+                emptyList()
+            }
+        }
 
         override fun createNewDeeplink(name: String) {
             val codeGenerator = GeneratingDeeplinkCode.Validating(

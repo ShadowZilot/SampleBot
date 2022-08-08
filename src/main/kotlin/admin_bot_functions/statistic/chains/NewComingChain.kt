@@ -1,12 +1,13 @@
 package admin_bot_functions.statistic.chains
 
 import Storages
+import admin_bot_functions.statistic.storage.StatisticHandling
+import admin_bot_functions.statistic.storage.StatisticType
 import chain.Chain
 import core.Updating
 import executables.Executable
 import handlers.CommandEvent
-import admin_bot_functions.statistic.storage.StatisticHandling
-import admin_bot_functions.statistic.storage.StatisticType
+import updating.CommandParameter
 
 class NewComingChain(
     private val mStatistic: StatisticHandling
@@ -17,10 +18,16 @@ class NewComingChain(
             Storages.stUsersStorage.user(updating)
         } catch (e: Exception) {
             Storages.stUsersStorage.rewrittenUser(updating)
-            mStatistic.writeStatistic(
-                updating,
-                StatisticType.NewComing
-            )
+            try {
+                Storages.stDeeplink.plusUserToLink(
+                    updating.map(CommandParameter())
+                )
+            } finally {
+                mStatistic.writeStatistic(
+                    updating,
+                    StatisticType.NewComing
+                )
+            }
         }
         return listOf(Executable.Dummy())
     }
