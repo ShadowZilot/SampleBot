@@ -5,24 +5,28 @@
       "data": 1
     },
     {
-      "code": "adminPanelMessage",
-      "data": 495
-    },
-    {
-      "code": "statStartPeriodDate",
-      "data": 1659301200000
-    },
-    {
-      "code": "statMessageId",
-      "data": 445
-    },
-    {
       "code": "statType",
-      "data": "actions"
+      "data": "newUsers"
+    },
+    {
+      "code": "deeplinkEditorMessage",
+      "data": 497
     },
     {
       "code": "statEndPeriodDate",
+      "data": 1659992400000
+    },
+    {
+      "code": "statStartPeriodDate",
       "data": 1659906000000
+    },
+    {
+      "code": "statMessageId",
+      "data": 497
+    },
+    {
+      "code": "adminPanelMessage",
+      "data": 495
     },
     {
       "code": "addNewAdminMessage",

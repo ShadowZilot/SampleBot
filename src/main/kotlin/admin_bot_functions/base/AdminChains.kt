@@ -4,6 +4,9 @@ import Storages
 import admin_bot_functions.base.chains.BackToAdminPanelChain
 import admin_bot_functions.base.chains.ViewAdminPanelChain
 import admin_bot_functions.deeplinking.DeeplinkPageMessage
+import admin_bot_functions.deeplinking.chain.BeginCreateDeeplinkChain
+import admin_bot_functions.deeplinking.chain.CancelCreatingDeeplink
+import admin_bot_functions.deeplinking.chain.CreateDeeplinkFinalChain
 import admin_bot_functions.deeplinking.chain.GoToDeeplinkPagesChain
 import admin_bot_functions.statistic.StatisticMessage
 import admin_bot_functions.statistic.chains.*
@@ -92,6 +95,16 @@ class AdminChains : BotChains {
             )
         ),
         GoToDeeplinkPagesChain(
+            DeeplinkPageMessage.Base(
+                Storages.stConfig.configValueString("botKey"),
+                Storages.stDeeplink
+            )
+        ),
+        BeginCreateDeeplinkChain(),
+        CreateDeeplinkFinalChain(
+            Storages.stDeeplink
+        ),
+        CancelCreatingDeeplink(
             DeeplinkPageMessage.Base(
                 Storages.stConfig.configValueString("botKey"),
                 Storages.stDeeplink
