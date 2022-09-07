@@ -1,10 +1,10 @@
 import admin_bot_functions.base.AdminChains
+import admin_bot_functions.statistic.chains.StatisticChain
 import core.BaseBot
 import core.EventRecognizing
 import core.PollingHandling
 import core.interceptor.UpdatesInterceptor
 import okhttp3.OkHttpClient
-import admin_bot_functions.statistic.chains.StatisticChain
 
 val mClient = OkHttpClient.Builder()
     .build()

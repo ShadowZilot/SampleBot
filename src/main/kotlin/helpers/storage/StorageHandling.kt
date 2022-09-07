@@ -1,15 +1,20 @@
 package helpers.storage
 
-import org.json.JSONArray
-
-abstract class StorageHandling<T> (
+abstract class StorageHandling<T : Record> (
     protected val mFile: JsonFile
 )  {
-    abstract fun load(): MutableList<T>
 
-    abstract fun cache(data: List<T>)
+    abstract fun insert(data: T)
 
-    fun cache(data: JSONArray) {
-        mFile.writeArray(data)
-    }
+    abstract fun update(data: T)
+
+    abstract fun delete(data: T)
+
+    abstract fun read(): T
+
+    abstract fun readNext(): T
+
+    abstract fun hasNext(): Boolean
+
+    abstract fun reset()
 }

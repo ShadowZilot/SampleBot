@@ -1,17 +1,37 @@
 package helpers.storage
 
-import org.json.JSONArray
-import java.io.File
+import java.io.*
 
 interface JsonFile {
 
-    fun array(): JSONArray
+    fun insert(data: Record)
 
-    fun writeArray(cachingArray: JSONArray)
+    fun update(data: Record)
+
+    fun delete(data: Record)
+
+    fun read(): Record
+
+    fun readNext(): Record
+
+    fun hasNext(): Boolean
+
+    fun reset()
 
     class Base(
         private val mFile: File
     ) : JsonFile {
+        private val mReader = BufferedReader(
+            InputStreamReader(
+                FileInputStream(mFile), "UTF-8"
+            )
+        )
+
+        private val mWriter = BufferedWriter(
+            OutputStreamWriter(
+                FileOutputStream(mFile), "UTF-8"
+            )
+        )
 
         init {
             if (!mFile.exists()) {
@@ -19,19 +39,34 @@ interface JsonFile {
             }
         }
 
-        override fun array(): JSONArray {
-            val text = mFile.readText()
-            return if (text.isNotEmpty()) {
-                JSONArray(text)
-            } else {
-                JSONArray()
-            }
+        override fun insert(data: Record) {
+            mWriter
+                .append(data.toData().toString(2))
+                .close()
         }
 
-        override fun writeArray(cachingArray: JSONArray) {
-            mFile.writeText(
-                cachingArray.toString(2)
-            )
+        override fun update(data: Record) {
+
+        }
+
+        override fun delete(data: Record) {
+
+        }
+
+        override fun read(): Record {
+            throw Exception()
+        }
+
+        override fun readNext(): Record {
+            throw Exception()
+        }
+
+        override fun hasNext(): Boolean {
+            return true
+        }
+
+        override fun reset() {
+
         }
     }
 }

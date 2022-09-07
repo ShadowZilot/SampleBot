@@ -1,31 +1,40 @@
 package admin_bot_functions.statistic.storage
 
 import helpers.storage.JsonFile
+import helpers.storage.Record
 import helpers.storage.StorageHandling
 import org.json.JSONArray
 import org.json.JSONObject
 
 class StatisticFileHandling(
-    file: JsonFile,
-    private val mCache: StatisticItem.Mapper<JSONObject>
+    file: JsonFile
     ) : StorageHandling<StatisticItem>(file) {
 
-    override fun load() = mutableListOf<StatisticItem>().apply {
-        val data = mFile.array()
-        for (i in 0 until data.length()) {
-            add(
-                StatisticItem(data.getJSONObject(i))
-            )
-        }
+    override fun insert(data: StatisticItem) {
+
     }
 
-    override fun cache(data: List<StatisticItem>) {
-        mFile.writeArray(
-            JSONArray().apply {
-                data.forEach {
-                    put(it.map(mCache))
-                }
-            }
-        )
+    override fun update(data: StatisticItem) {
+
+    }
+
+    override fun delete(data: StatisticItem) {
+
+    }
+
+    override fun read(): StatisticItem {
+        return StatisticItem(JSONObject())
+    }
+
+    override fun readNext(): StatisticItem {
+        return StatisticItem(JSONObject())
+    }
+
+    override fun hasNext(): Boolean {
+        return true
+    }
+
+    override fun reset() {
+
     }
 }

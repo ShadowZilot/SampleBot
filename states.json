@@ -1,8 +1,12 @@
 [{
   "codes": [
     {
+      "code": "userAge",
+      "data": 45
+    },
+    {
       "code": "deeplinkPageNumber",
-      "data": 2
+      "data": 1
     },
     {
       "code": "deeplinkEditorMessage",

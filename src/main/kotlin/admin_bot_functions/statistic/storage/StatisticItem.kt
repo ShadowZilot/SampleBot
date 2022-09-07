@@ -1,5 +1,6 @@
 package admin_bot_functions.statistic.storage
 
+import helpers.storage.Record
 import org.json.JSONObject
 
 data class StatisticItem(
@@ -7,8 +8,9 @@ data class StatisticItem(
     private val mChatId: Long,
     private val mEventName: String,
     private val mParameters: List<Pair<String, Any>>,
-    private val mDate: Long
-) {
+    private val mDate: Long,
+) : Record() {
+
     constructor(item: JSONObject) : this(
         item.getLong("userId"),
         item.getLong("chatId"),
@@ -26,6 +28,14 @@ data class StatisticItem(
         },
         item.getLong("date")
     )
+
+    override fun id() = hashCode().toLong()
+
+    override fun toData(): JSONObject {
+        return this.map(StatisticItemToJson())
+    }
+
+    override fun contentLength() = toString().length
 
     fun <T> map(mapper: Mapper<T>) = mapper.map(
         mUserId,

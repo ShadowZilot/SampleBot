@@ -19,6 +19,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
     implementation("com.opencsv:opencsv:5.6")
     implementation("commons-codec:commons-codec:1.15")
+    implementation("commons-io:commons-io:2.11.0")
 }
 
 tasks.test {

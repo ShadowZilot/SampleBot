@@ -1,6 +1,7 @@
 package admin_bot_functions.statistic.chains
 
 import Storages
+import admin_bot_functions.deeplinking.storage.NotFoundDeeplink
 import admin_bot_functions.statistic.storage.StatisticHandling
 import admin_bot_functions.statistic.storage.StatisticType
 import chain.Chain
@@ -22,6 +23,8 @@ class NewComingChain(
                 Storages.stDeeplink.plusUserToLink(
                     updating.map(CommandParameter())
                 )
+            } catch (e: NotFoundDeeplink) {
+                // do nothing
             } finally {
                 mStatistic.writeStatistic(
                     updating,

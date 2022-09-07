@@ -1,5 +1,6 @@
 package admin_bot_functions.statistic.storage
 
+import admin_bot_functions.statistic.SpeedTesting
 import core.Updating
 import helpers.storage.StorageHandling
 import admin_bot_functions.statistic.form_stat.IsStatItemFit
@@ -28,7 +29,6 @@ interface StatisticHandling {
     class Base(
         private val mStore: StorageHandling<StatisticItem>
     ) : StatisticHandling {
-        private val mStates = mStore.load()
 
         override fun statSliceByDate(statType: StatisticType, dateRange: LongRange): List<StatisticItem> {
             val finder = IsStatItemFit(
@@ -61,12 +61,24 @@ interface StatisticHandling {
                     System.currentTimeMillis()
                 )
             )
-            mStore.cache(mStates)
+            SpeedTesting.Base(
+                {
+                    mStore.cache(
+                        listOf(
+                            mStates.last()
+                        )
+                    )
+                },
+                "Inset new stat item",
+                5L
+            ).test()
         }
 
-        override fun writeStatistic(updating: Updating,
-                                    type: StatisticType,
-                                    parameters: List<Pair<String, Any>>) {
+        override fun writeStatistic(
+            updating: Updating,
+            type: StatisticType,
+            parameters: List<Pair<String, Any>>
+        ) {
             writeStatistic(
                 updating.map(UserIdUpdating()),
                 updating.map(UpdatingChatId()).second,
