@@ -1,5 +1,16 @@
 package helpers.storage
 
+private const val mOpenIdSymbol = '<'
+private const val mCloseIdSymbol = '>'
+private const val mOpenRecordSymbol = '#'
+private const val mSeparatorSymbol = ';'
+private const val mValueSymbol = '='
+private const val mArrayStartSymbol = '['
+private const val mArrayEndSymbol = ']'
+private const val mArrayItemOpenSymbol = '{'
+private const val mArrayItemEndSymbol = '}'
+private const val mArrayItemDividerSymbol = ','
+
 interface RawData {
 
     fun put(key: String, data: Any)
@@ -62,8 +73,8 @@ interface RawData {
             throw RawDataNotFoundException(key)
         }
 
-        override fun cachedRecord() : String {
-            return ""
+        override fun cachedRecord() = buildString {
+
         }
     }
 }
