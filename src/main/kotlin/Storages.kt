@@ -19,30 +19,31 @@ object Storages {
     val stAdmins = AdminsHandling.Base(
         AdminsFileHandling(
             EDBConnection.Base(
-                File("${sBasePath}admins.json")
+                "admins.edb"
             ), AdminToJson()
         )
     )
-    val stConfig = Config.Base(File("${sBasePath}config.json"))
+    val stConfig = Config.Base(File("config.json"))
     val stStateStorage = StateHandling.Base(
         StatesFileHelping(
-            EDBConnection.Base(File("${sBasePath}states.json"))
+            EDBConnection.Base("states.edb")
         )
     )
     val stUsersStorage = AllUsersStorage.Base(
         UserFileHelping(
-            EDBConnection.Base(File("${sBasePath}allUsers.json")),
+            EDBConnection.Base("allUsers.edb"),
             UserToJson()
         )
     )
     val stStatistics = StatisticHandling.Base(
         StatisticFileHandling(
-            EDBConnection.Base(File("${sBasePath}statistic.json"))
+            EDBConnection.Base("statistic.edb")
         )
     )
+
     val stDeeplink = DeeplinkStorage.Base(
         DeeplinkFileHandling(
-            EDBConnection.Base(File("${sBasePath}deeplink.json")),
+            EDBConnection.Base("deeplink.edb"),
             DeeplinkToJson()
         ),
         stConfig.configValueString("botName")

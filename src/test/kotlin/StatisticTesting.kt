@@ -9,9 +9,7 @@ import kotlin.test.Test
 class StatisticTesting {
     private val mDB = StatisticHandling.Base(
         StatisticFileHandling(
-            EDBConnection.Base(
-                File("statisticsTest.json")
-            )
+            EDBConnection.Base("statisticsTest.edb")
         )
     )
 

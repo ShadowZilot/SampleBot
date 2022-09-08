@@ -1,5 +1,6 @@
 package helpers.storage
 
+import sBasePath
 import java.io.*
 
 private const val mOpenIdSymbol = '<'
@@ -7,59 +8,62 @@ private const val mCloseIdSymbol = '>'
 
 interface EDBConnection {
 
-    fun insert(data: Record)
+    fun insert(data: RawData)
 
-    fun update(data: Record)
+    fun update(data: RawData)
 
-    fun delete(data: Record)
+    fun delete(data: RawData)
 
-    fun read(): Record
+    fun read(): RawData
 
-    fun readNext(): Record
+    fun readNext(): RawData
 
     fun hasNext(): Boolean
 
     fun reset()
 
+    fun maxId() : Long
+
     class Base(
-        private val mFile: File
+        fileName: String
     ) : EDBConnection {
         private val mReader = BufferedReader(
-            InputStreamReader(
-                FileInputStream(mFile), "UTF-8"
-            )
+            FileReader("$sBasePath$fileName")
         )
-
         private val mWriter = BufferedWriter(
-            OutputStreamWriter(
-                FileOutputStream(mFile), "UTF-8"
-            )
+            FileWriter("$sBasePath$fileName", true)
         )
-
-        init {
-            if (!mFile.exists()) {
-                mFile.createNewFile()
+        private val mMaxId : Long by lazy {
+            val firstLine = mReader.readLine()
+            if (firstLine[0] == mOpenIdSymbol) {
+                val endIndex = firstLine.indexOf(mCloseIdSymbol)
+                firstLine.substring(
+                    1 until endIndex
+                ).toLong()
+            } else {
+                0L
             }
         }
 
-        override fun insert(data: Record) {
+        override fun insert(data: RawData) {
             mWriter
-                .append(data.toData().toString(2))
+                .append(data.cachedRecord())
                 .close()
         }
 
-        override fun update(data: Record) {
+        override fun update(data: RawData) {
 
         }
 
-        override fun delete(data: Record) {
+        override fun delete(data: RawData) {
+
         }
 
-        override fun read(): Record {
+        override fun read(): RawData {
             throw Exception()
         }
 
-        override fun readNext(): Record {
+        override fun readNext(): RawData {
             throw Exception()
         }
 
@@ -68,7 +72,9 @@ interface EDBConnection {
         }
 
         override fun reset() {
-
+            mReader.reset()
         }
+
+        override fun maxId() = mMaxId
     }
 }
