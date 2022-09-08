@@ -1,15 +1,10 @@
 package helpers.storage
 
-private const val mOpenIdSymbol = '<'
-private const val mCloseIdSymbol = '>'
 private const val mOpenRecordSymbol = '#'
 private const val mSeparatorSymbol = ';'
 private const val mValueSymbol = '='
-private const val mArrayStartSymbol = '['
-private const val mArrayEndSymbol = ']'
 private const val mArrayItemOpenSymbol = '{'
 private const val mArrayItemEndSymbol = '}'
-private const val mArrayItemDividerSymbol = ','
 
 interface RawData {
 
@@ -29,15 +24,18 @@ interface RawData {
 
     fun cachedRecord(): String
 
-    class Base : RawData {
+    fun id() : Long
+
+    class Base(
         private var mId: Long = -1L
+    ) : RawData {
         private val mValues = mutableMapOf<String, Any>()
 
         override fun put(key: String, data: Any) {
             mValues[key] = data
         }
 
-        override fun string(key: String) : String = if (mValues[key] is String) {
+        override fun string(key: String): String = if (mValues[key] is String) {
             mValues[key] as String
         } else {
             throw RawDataNotFoundException(key)
@@ -74,7 +72,29 @@ interface RawData {
         }
 
         override fun cachedRecord() = buildString {
-
+            if (mId > 0L) {
+                append(mOpenRecordSymbol)
+                append(mId)
+            }
+            append(mArrayItemOpenSymbol)
+            for (key in mValues.keys) {
+                append(key)
+                append(mValueSymbol)
+                if (mValues[key] is RawArray) {
+                    append((mValues[key] as RawArray).stringSource())
+                } else {
+                    append(mValues[key])
+                }
+                if (mValues[key] is Long) {
+                    append('L')
+                }
+                if (key != mValues.keys.last()) {
+                    append(mSeparatorSymbol)
+                }
+            }
+            append(mArrayItemEndSymbol)
         }
+
+        override fun id() = mId
     }
 }

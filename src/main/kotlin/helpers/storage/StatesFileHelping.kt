@@ -1,28 +1,36 @@
 package helpers.storage
 
-import org.json.JSONArray
 import staging.State
 
 class StatesFileHelping(
-    file: JsonFile,
+    file: EDBConnection,
 ) : StorageHandling<State>(file) {
 
-    override fun load() = mutableListOf<State>().apply {
-        val data = mFile.array()
-        for (i in 0 until data.length()) {
-            add(
-                State(data.getJSONObject(i))
-            )
-        }
+    override fun insert(data: State) {
+        TODO("Not yet implemented")
     }
 
-    override fun cache(data: List<State>) {
-        mFile.writeArray(
-            JSONArray().apply {
-                data.forEach {
-                    put(it.toJson())
-                }
-            }
-        )
+    override fun update(data: State) {
+        TODO("Not yet implemented")
+    }
+
+    override fun delete(data: State) {
+        TODO("Not yet implemented")
+    }
+
+    override fun read(): State {
+        TODO("Not yet implemented")
+    }
+
+    override fun readNext(): State {
+        TODO("Not yet implemented")
+    }
+
+    override fun hasNext(): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun reset() {
+        TODO("Not yet implemented")
     }
 }

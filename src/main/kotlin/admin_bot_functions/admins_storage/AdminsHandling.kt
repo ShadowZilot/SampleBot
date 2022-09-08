@@ -12,20 +12,20 @@ interface AdminsHandling {
     class Base(
         private val mStore: StorageHandling<Admin>
     ) : AdminsHandling {
-        private val mAdmins = mStore.load()
 
         override fun addNewAdmin(updating: Updating) {
-            if (!isUserAdmin(updating)) {
-                mAdmins.add(Admin(updating))
-                mStore.cache(mAdmins)
-            }
+//            if (!isUserAdmin(updating)) {
+//                mAdmins.add(Admin(updating))
+//                mStore.cache(mAdmins)
+//            }
         }
 
         override fun isUserAdmin(updating: Updating): Boolean {
-            val result = mAdmins.find {
-                it.map(AdminSameId(updating))
-            }
-            return result != null
+//            val result = mAdmins.find {
+//                it.map(AdminSameId(updating))
+//            }
+//            return result != null
+            return false
         }
     }
 }

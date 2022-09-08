@@ -1,9 +1,7 @@
 package admin_bot_functions.statistic.storage
 
-import admin_bot_functions.statistic.SpeedTesting
 import core.Updating
 import helpers.storage.StorageHandling
-import admin_bot_functions.statistic.form_stat.IsStatItemFit
 import updating.UpdatingChatId
 import updating.UserIdUpdating
 
@@ -31,20 +29,21 @@ interface StatisticHandling {
     ) : StatisticHandling {
 
         override fun statSliceByDate(statType: StatisticType, dateRange: LongRange): List<StatisticItem> {
-            val finder = IsStatItemFit(
-                dateRange,
-                statType
-            )
-            return mutableListOf<StatisticItem>().apply {
-                for (i in mStates.indices) {
-                    if (mStates[i].map(finder)) {
-                        add(mStates[i])
-                    }
-                }
-            }
+//            val finder = IsStatItemFit(
+//                dateRange,
+//                statType
+//            )
+//            return mutableListOf<StatisticItem>().apply {
+//                for (i in mStates.indices) {
+//                    if (mStates[i].map(finder)) {
+//                        add(mStates[i])
+//                    }
+//                }
+//            }
+            return emptyList()
         }
 
-        override fun allStats() = mStates
+        override fun allStats() = emptyList<StatisticItem>()
 
         override fun writeStatistic(
             userId: Long,
@@ -52,26 +51,26 @@ interface StatisticHandling {
             type: StatisticType,
             parameters: List<Pair<String, Any>>
         ) {
-            mStates.add(
-                StatisticItem(
-                    userId,
-                    chatId,
-                    type.typeName(),
-                    parameters,
-                    System.currentTimeMillis()
-                )
-            )
-            SpeedTesting.Base(
-                {
-                    mStore.cache(
-                        listOf(
-                            mStates.last()
-                        )
-                    )
-                },
-                "Inset new stat item",
-                5L
-            ).test()
+//            mStates.add(
+//                StatisticItem(
+//                    userId,
+//                    chatId,
+//                    type.typeName(),
+//                    parameters,
+//                    System.currentTimeMillis()
+//                )
+//            )
+//            SpeedTesting.Base(
+//                {
+//                    mStore.cache(
+//                        listOf(
+//                            mStates.last()
+//                        )
+//                    )
+//                },
+//                "Inset new stat item",
+//                5L
+//            ).test()
         }
 
         override fun writeStatistic(

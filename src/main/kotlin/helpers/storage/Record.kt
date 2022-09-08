@@ -4,7 +4,7 @@ import org.json.JSONObject
 
 abstract class Record () {
 
-    constructor(item: JSONObject) : this()
+    constructor(item: RawData) : this()
 
     abstract fun id() : Long
 

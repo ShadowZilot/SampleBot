@@ -1,12 +1,13 @@
 package staging
 
+import helpers.storage.Record
 import org.json.JSONArray
 import org.json.JSONObject
 
 data class State(
     val mUserId: Long,
     private val mValues: List<Pair<String, Any>> = emptyList()
-) {
+) : Record() {
 
     constructor(
         otherState: State,
@@ -99,6 +100,14 @@ data class State(
         } catch (e: java.lang.Exception) {
             throw NotFoundStateValue(mUserId, key)
         }
+    }
+
+    override fun id() = -1L
+
+    override fun toData() = JSONObject()
+
+    override fun contentLength(): Int {
+        TODO("Not yet implemented")
     }
 }
 

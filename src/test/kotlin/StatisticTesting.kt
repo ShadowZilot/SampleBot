@@ -1,8 +1,7 @@
 import admin_bot_functions.statistic.storage.StatisticFileHandling
 import admin_bot_functions.statistic.storage.StatisticHandling
-import admin_bot_functions.statistic.storage.StatisticItemToJson
 import admin_bot_functions.statistic.storage.StatisticType
-import helpers.storage.JsonFile
+import helpers.storage.EDBConnection
 import java.io.File
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -10,10 +9,9 @@ import kotlin.test.Test
 class StatisticTesting {
     private val mDB = StatisticHandling.Base(
         StatisticFileHandling(
-            JsonFile.Base(
+            EDBConnection.Base(
                 File("statisticsTest.json")
-            ),
-            StatisticItemToJson()
+            )
         )
     )
 

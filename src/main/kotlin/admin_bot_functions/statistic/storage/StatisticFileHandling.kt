@@ -1,13 +1,11 @@
 package admin_bot_functions.statistic.storage
 
-import helpers.storage.JsonFile
-import helpers.storage.Record
+import helpers.storage.EDBConnection
 import helpers.storage.StorageHandling
-import org.json.JSONArray
 import org.json.JSONObject
 
 class StatisticFileHandling(
-    file: JsonFile
+    file: EDBConnection
     ) : StorageHandling<StatisticItem>(file) {
 
     override fun insert(data: StatisticItem) {

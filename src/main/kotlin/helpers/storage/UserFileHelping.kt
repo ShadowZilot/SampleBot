@@ -1,30 +1,38 @@
 package helpers.storage
 
 import users.User
-import org.json.JSONArray
 import org.json.JSONObject
 
 class UserFileHelping(
-    file: JsonFile,
+    file: EDBConnection,
     private val mCache: User.Mapper<JSONObject>
 ) : StorageHandling<User>(file) {
-
-    override fun load() = mutableListOf<User>().apply {
-        val data = mFile.array()
-        for (i in 0 until data.length()) {
-            add(
-                User(data.getJSONObject(i))
-            )
-        }
+    override fun insert(data: User) {
+        TODO("Not yet implemented")
     }
 
-    override fun cache(data: List<User>) {
-        mFile.writeArray(
-            JSONArray().apply {
-                data.forEach {
-                    put(it.map(mCache))
-                }
-            }
-        )
+    override fun update(data: User) {
+        TODO("Not yet implemented")
     }
+
+    override fun delete(data: User) {
+        TODO("Not yet implemented")
+    }
+
+    override fun read(): User {
+        TODO("Not yet implemented")
+    }
+
+    override fun readNext(): User {
+        TODO("Not yet implemented")
+    }
+
+    override fun hasNext(): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun reset() {
+        TODO("Not yet implemented")
+    }
+
 }

@@ -1,31 +1,39 @@
 package admin_bot_functions.admins_storage
 
-import helpers.storage.JsonFile
+import helpers.storage.EDBConnection
 import helpers.storage.StorageHandling
-import org.json.JSONArray
 import org.json.JSONObject
 
 class AdminsFileHandling(
-    file: JsonFile,
+    file: EDBConnection,
     private val mCache: Admin.Mapper<JSONObject>
 ) : StorageHandling<Admin>(file) {
 
-    override fun load() = mutableListOf<Admin>().apply {
-        val data = mFile.array()
-        for (i in 0 until data.length()) {
-            add(
-                Admin(data.getJSONObject(i))
-            )
-        }
+    override fun insert(data: Admin) {
+        TODO("Not yet implemented")
     }
 
-    override fun cache(data: List<Admin>) {
-        mFile.writeArray(
-            JSONArray().apply {
-                data.forEach {
-                    put(it.map(mCache))
-                }
-            }
-        )
+    override fun update(data: Admin) {
+        TODO("Not yet implemented")
+    }
+
+    override fun delete(data: Admin) {
+        TODO("Not yet implemented")
+    }
+
+    override fun read(): Admin {
+        TODO("Not yet implemented")
+    }
+
+    override fun readNext(): Admin {
+        TODO("Not yet implemented")
+    }
+
+    override fun hasNext(): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun reset() {
+        TODO("Not yet implemented")
     }
 }

@@ -19,32 +19,32 @@ interface StateHandling {
     class Base(
         private val mStore: StorageHandling<State>
     ) : StateHandling {
-        private val mStates = mStore.load()
 
         override fun writeState(state: State, index: Int) {
-            mStates.add(index, state)
-            mStore.cache(mStates)
+//            mStates.add(index, state)
+//            mStore.cache(mStates)
         }
 
         override fun updateState(state: State) {
-            val oldState = mStates.find {
-                it.mUserId == state.mUserId
-            }
-            if (oldState != null) {
-                val index = mStates.indexOf(
-                    oldState
-                )
-                mStates.removeAt(index)
-                writeState(state, index)
-            } else {
-                writeState(state)
-            }
+//            val oldState = mStates.find {
+//                it.mUserId == state.mUserId
+//            }
+//            if (oldState != null) {
+//                val index = mStates.indexOf(
+//                    oldState
+//                )
+//                mStates.removeAt(index)
+//                writeState(state, index)
+//            } else {
+//                writeState(state)
+//            }
         }
 
         override fun state(id: Long): State {
-            return mStates.find {
-                it.mUserId == id
-            } ?: return State(id, listOf())
+//            return mStates.find {
+//                it.mUserId == id
+//            } ?: return State(id, listOf())
+            throw NotFoundState()
         }
 
         override fun state(updating: Updating) : State {
@@ -52,12 +52,12 @@ interface StateHandling {
         }
 
         override fun deleteState(id: Long) {
-            mStates.remove(
-                mStates.find {
-                    it.mUserId == id
-                }
-            )
-            mStore.cache(mStates)
+//            mStates.remove(
+//                mStates.find {
+//                    it.mUserId == id
+//                }
+//            )
+//            mStore.cache(mStates)
         }
     }
 }

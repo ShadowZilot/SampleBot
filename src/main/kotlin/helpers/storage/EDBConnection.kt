@@ -2,7 +2,10 @@ package helpers.storage
 
 import java.io.*
 
-interface JsonFile {
+private const val mOpenIdSymbol = '<'
+private const val mCloseIdSymbol = '>'
+
+interface EDBConnection {
 
     fun insert(data: Record)
 
@@ -20,7 +23,7 @@ interface JsonFile {
 
     class Base(
         private val mFile: File
-    ) : JsonFile {
+    ) : EDBConnection {
         private val mReader = BufferedReader(
             InputStreamReader(
                 FileInputStream(mFile), "UTF-8"
@@ -50,7 +53,6 @@ interface JsonFile {
         }
 
         override fun delete(data: Record) {
-
         }
 
         override fun read(): Record {

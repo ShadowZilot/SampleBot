@@ -1,12 +1,13 @@
 package admin_bot_functions.admins_storage
 
 import core.Updating
+import helpers.storage.Record
 import org.json.JSONObject
 import updating.UpdatingChatId
 
 data class Admin(
     private val mUserId: Long
-) {
+) : Record() {
     constructor(updating: Updating) : this(
         updating.map(UpdatingChatId()).second
     )
@@ -23,5 +24,13 @@ data class Admin(
         fun map(
             userId: Long
         ) : T
+    }
+
+    override fun id() = -1L
+
+    override fun toData() = JSONObject()
+
+    override fun contentLength(): Int {
+        TODO("Not yet implemented")
     }
 }

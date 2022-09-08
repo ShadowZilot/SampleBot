@@ -1,7 +1,7 @@
 package helpers.storage
 
 abstract class StorageHandling<T : Record> (
-    protected val mFile: JsonFile
+    protected val mFile: EDBConnection
 )  {
 
     abstract fun insert(data: T)
