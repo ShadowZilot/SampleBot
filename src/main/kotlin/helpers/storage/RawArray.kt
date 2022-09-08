@@ -6,13 +6,13 @@ private const val mArrayItemDividerSymbol = ','
 
 interface RawArray {
 
-    fun length() : Int
+    fun length(): Int
 
-    fun itemAt(index: Int) : RawData
+    fun itemAt(index: Int): RawData
 
     fun put(item: RawData, index: Int = -1)
 
-    fun stringSource() : String
+    fun stringSource(): String
 
     class Base : RawArray {
         private val mValues = mutableListOf<RawData>()

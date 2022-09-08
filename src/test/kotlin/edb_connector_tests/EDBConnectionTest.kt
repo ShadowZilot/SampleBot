@@ -1,7 +1,6 @@
 package edb_connector_tests
 
 import helpers.storage.EDBConnection
-import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

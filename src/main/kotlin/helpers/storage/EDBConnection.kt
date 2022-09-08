@@ -14,7 +14,7 @@ interface EDBConnection {
 
     fun delete(data: RawData)
 
-    fun read(): RawData
+    fun read(id: Long): RawData
 
     fun readNext(): RawData
 
@@ -59,7 +59,7 @@ interface EDBConnection {
 
         }
 
-        override fun read(): RawData {
+        override fun read(id: Long): RawData {
             throw Exception()
         }
 
