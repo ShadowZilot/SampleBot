@@ -1,8 +1,6 @@
 package helpers.storage
 
-import admin_bot_functions.statistic.SpeedTesting
 import helpers.storage.exceptions.UnexpectedSymbolInData
-import java.lang.NumberFormatException
 
 private const val mValueSymbol = '='
 

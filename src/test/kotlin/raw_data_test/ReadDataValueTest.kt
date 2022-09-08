@@ -109,7 +109,7 @@ class ReadDataValueTest {
         SpeedTesting.Base(
             {
                 ReadDataValue.Base().readValue(
-                    "isPremium=true",
+                    "codes=[{code=userAge;data=45},{code=deeplinkPageNumber;data=1}]",
                     data
                 )
             },
@@ -119,6 +119,25 @@ class ReadDataValueTest {
         assertEquals(
             true,
             data.boolean("isPremium")
+        )
+    }
+
+    @Test
+    fun stringWithPointValue() {
+        val data = RawData.Base(1)
+        SpeedTesting.Base(
+            {
+                ReadDataValue.Base().readValue(
+                    "sentence=Hello world.",
+                    data
+                )
+            },
+            "String data value read",
+            1L
+        ).test()
+        assertEquals(
+            "Hello world.",
+            data.string("sentence")
         )
     }
 }

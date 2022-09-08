@@ -1,37 +1,36 @@
 package helpers.storage
 
-import helpers.storage.exceptions.NoDataIdFound
+import helpers.storage.exceptions.DataRecordNotRecognized
 
-
-private const val mOpenRecordSymbol = '#'
 private const val mSeparatorSymbol = ';'
-private const val mValueSymbol = '='
 private const val mArrayItemOpenSymbol = '{'
 private const val mArrayItemEndSymbol = '}'
-private const val mArrayStartSymbol = '['
-private const val mArrayEndSymbol = ']'
-private const val mArrayItemDividerSymbol = ','
 
 interface RawDataReader {
 
-    fun readRaw(rawString: String): RawData
+    fun readRawData(id: Long = -1L, source: String): RawData
 
     class Base : RawDataReader {
-        // #1{userId=1129163878L;codes=[{code=userAge;data=45},{code=floatNumber;data=1.5}];isAwait=true}
-        override fun readRaw(rawString: String): RawData {
-            val startRecord : Int
-            val result = if (rawString[0] == mOpenRecordSymbol) {
-                startRecord = rawString.indexOf(mArrayItemOpenSymbol, 0)
-                RawData.Base(
-                    rawString.substring(
-                        0..startRecord
-                    ).toLong()
-                )
+        override fun readRawData(id: Long, source: String): RawData {
+            val valueReader = ReadDataValue.Base()
+            val result = if (id != -1L) {
+                RawData.Base(id)
             } else {
-                throw NoDataIdFound(rawString)
+                RawData.Base()
             }
-            for (i in (startRecord + 1) until rawString.length) {
-
+            val outSource = if (source.first() == mArrayItemOpenSymbol && source.last() == mArrayItemEndSymbol) {
+                source
+                    .removePrefix(mArrayItemOpenSymbol.toString())
+                    .removeSuffix(mArrayItemEndSymbol.toString())
+            } else {
+                throw DataRecordNotRecognized(source)
+            }
+            val values = outSource.split(mSeparatorSymbol)
+            for (i in values.indices) {
+                valueReader.readValue(
+                    values[i],
+                    result
+                )
             }
             return result
         }

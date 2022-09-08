@@ -96,5 +96,23 @@ interface RawData {
         }
 
         override fun id() = mId
+
+        override fun toString() = cachedRecord()
+
+        override fun hashCode(): Int {
+            var summa = 0
+            for (data in mValues) {
+                summa += data.value.hashCode()
+            }
+            return summa
+        }
+
+        override fun equals(other: Any?): Boolean {
+            return if (other != null && other is RawData) {
+                other.cachedRecord() == cachedRecord()
+            } else {
+                false
+            }
+        }
     }
 }
