@@ -24,7 +24,7 @@ class RawDataCacheStringTest {
                 })
             })
         }
-        val actualCache = data.cachedRecord()
+        val actualCache = data.cachedRecord(1)
         assertEquals(
             "#1{userId=1129163878L;codes=[{code=userAge;data=45},{code=deeplinkPageNumber;data=1}]}",
             actualCache
@@ -44,7 +44,7 @@ class RawDataCacheStringTest {
                 })
             })
         }
-        val actualCache = data.cachedRecord()
+        val actualCache = data.cachedRecord(1)
         assertEquals(
             "#1{userId=1129163878L;codes=[{code=userAge;data=45.5}]}",
             actualCache
@@ -65,7 +65,7 @@ class RawDataCacheStringTest {
             })
             put("isPremium", true)
         }
-        val actualCache = data.cachedRecord()
+        val actualCache = data.cachedRecord(1)
         assertEquals(
             "#1{userId=1129163878L;codes=[{code=userAge;data=45.5}];isPremium=true}",
             actualCache

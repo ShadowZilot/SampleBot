@@ -22,9 +22,9 @@ interface RawData {
 
     fun boolean(key: String): Boolean
 
-    fun cachedRecord(): String
+    fun cachedRecord(id: Long): String
 
-    fun id() : Long
+    fun id(): Long
 
     class Base(
         private var mId: Long = -1L
@@ -71,7 +71,7 @@ interface RawData {
             throw RawDataNotFoundException(key)
         }
 
-        override fun cachedRecord() = buildString {
+        override fun cachedRecord(id: Long) = buildString {
             if (mId > 0L) {
                 append(mOpenRecordSymbol)
                 append(mId)
@@ -97,7 +97,7 @@ interface RawData {
 
         override fun id() = mId
 
-        override fun toString() = cachedRecord()
+        override fun toString() = cachedRecord(mId)
 
         override fun hashCode(): Int {
             var summa = 0
@@ -109,7 +109,7 @@ interface RawData {
 
         override fun equals(other: Any?): Boolean {
             return if (other != null && other is RawData) {
-                other.cachedRecord() == cachedRecord()
+                other.cachedRecord(other.id()) == cachedRecord(mId)
             } else {
                 false
             }
