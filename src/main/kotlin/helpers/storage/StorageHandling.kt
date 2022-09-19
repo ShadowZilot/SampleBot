@@ -1,5 +1,7 @@
 package helpers.storage
 
+import helpers.storage.edb_commons.EDBConnection
+
 abstract class StorageHandling<T : Record> (
     protected val mFile: EDBConnection
 )  {

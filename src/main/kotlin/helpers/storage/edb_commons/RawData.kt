@@ -1,4 +1,4 @@
-package helpers.storage
+package helpers.storage.edb_commons
 
 private const val mOpenRecordSymbol = '#'
 private const val mSeparatorSymbol = ';'

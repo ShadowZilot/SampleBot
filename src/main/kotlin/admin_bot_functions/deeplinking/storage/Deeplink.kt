@@ -31,12 +31,4 @@ data class Deeplink(
             countUsers: Int
         ) : T
     }
-
-    override fun id() = -1L
-
-    override fun toData() = JSONObject()
-
-    override fun contentLength(): Int {
-        TODO("Not yet implemented")
-    }
 }

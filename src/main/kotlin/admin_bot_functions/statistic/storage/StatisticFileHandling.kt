@@ -1,6 +1,6 @@
 package admin_bot_functions.statistic.storage
 
-import helpers.storage.EDBConnection
+import helpers.storage.edb_commons.EDBConnection
 import helpers.storage.StorageHandling
 import org.json.JSONObject
 

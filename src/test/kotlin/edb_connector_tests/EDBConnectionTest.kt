@@ -1,8 +1,6 @@
 package edb_connector_tests
 
-import SpeedTesting
-import helpers.storage.EDBConnection
-import helpers.storage.RawData
+import helpers.storage.edb_commons.EDBConnection
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

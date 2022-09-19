@@ -1,11 +1,11 @@
 package helpers.storage
 
+import helpers.storage.edb_commons.EDBConnection
 import users.User
 import org.json.JSONObject
 
 class UserFileHelping(
-    file: EDBConnection,
-    private val mCache: User.Mapper<JSONObject>
+    file: EDBConnection
 ) : StorageHandling<User>(file) {
     override fun insert(data: User) {
         TODO("Not yet implemented")

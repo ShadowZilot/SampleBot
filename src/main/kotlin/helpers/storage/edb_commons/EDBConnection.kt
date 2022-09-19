@@ -1,5 +1,6 @@
-package helpers.storage
+package helpers.storage.edb_commons
 
+import helpers.storage.RecordReader
 import helpers.storage.exceptions.RawDataIsUp
 import helpers.storage.exceptions.RawDataNotFound
 import logs.Logging

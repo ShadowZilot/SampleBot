@@ -10,6 +10,7 @@ import admin_bot_functions.statistic.chains.*
 import admin_bot_functions.statistic.period_time.StatisticsTimePeriod
 import chain.blocking.ChainBlocking
 import core.BotChains
+import stConfig
 
 class AdminChains : BotChains {
     override fun chains() = listOf(
@@ -22,7 +23,7 @@ class AdminChains : BotChains {
         ),
         ActiveUsersChain(
             StatisticMessage.Base(
-                Storages.stConfig.configValueString("botKey"),
+                stConfig.configValueString("botKey"),
                 Storages.stStateStorage,
                 Storages.stStatistics
             )
@@ -30,14 +31,14 @@ class AdminChains : BotChains {
         BackToStatViewing(),
         NewComingUsersStat(
             StatisticMessage.Base(
-                Storages.stConfig.configValueString("botKey"),
+                stConfig.configValueString("botKey"),
                 Storages.stStateStorage,
                 Storages.stStatistics
             )
         ),
         ActionsStat(
             StatisticMessage.Base(
-                Storages.stConfig.configValueString("botKey"),
+                stConfig.configValueString("botKey"),
                 Storages.stStateStorage,
                 Storages.stStatistics
             )
@@ -47,7 +48,7 @@ class AdminChains : BotChains {
                 Storages.stStateStorage
             ),
             StatisticMessage.Base(
-                Storages.stConfig.configValueString("botKey"),
+                stConfig.configValueString("botKey"),
                 Storages.stStateStorage,
                 Storages.stStatistics
             )
@@ -63,7 +64,7 @@ class AdminChains : BotChains {
                 Storages.stStateStorage
             ),
             StatisticMessage.Base(
-                Storages.stConfig.configValueString("botKey"),
+                stConfig.configValueString("botKey"),
                 Storages.stStateStorage,
                 Storages.stStatistics
             )
@@ -71,7 +72,7 @@ class AdminChains : BotChains {
         PointStartDateChain(),
         PointStartDateChainFinal(
             StatisticMessage.Base(
-                Storages.stConfig.configValueString("botKey"),
+                stConfig.configValueString("botKey"),
                 Storages.stStateStorage,
                 Storages.stStatistics
             )
@@ -79,34 +80,34 @@ class AdminChains : BotChains {
         PointEndDateChain(),
         PointEndDateChainFinal(
             StatisticMessage.Base(
-                Storages.stConfig.configValueString("botKey"),
+                stConfig.configValueString("botKey"),
                 Storages.stStateStorage,
                 Storages.stStatistics
             )
         ),
         CancelEnteringDateChain(
             StatisticMessage.Base(
-                Storages.stConfig.configValueString("botKey"),
+                stConfig.configValueString("botKey"),
                 Storages.stStateStorage,
                 Storages.stStatistics
             )
         ),
         GoToDeeplinkPagesChain(
             DeeplinkPageMessage.Base(
-                Storages.stConfig.configValueString("botKey"),
+                stConfig.configValueString("botKey"),
                 Storages.stDeeplink
             )
         ),
         GoToNextDeeplinkPage(
             Storages.stDeeplink,
             DeeplinkPageMessage.Base(
-                Storages.stConfig.configValueString("botKey"),
+                stConfig.configValueString("botKey"),
                 Storages.stDeeplink
             )
         ),
         GoToPreviousDeeplinkPage(
             DeeplinkPageMessage.Base(
-                Storages.stConfig.configValueString("botKey"),
+                stConfig.configValueString("botKey"),
                 Storages.stDeeplink
             )
         ),
@@ -116,7 +117,7 @@ class AdminChains : BotChains {
         ),
         CancelCreatingDeeplink(
             DeeplinkPageMessage.Base(
-                Storages.stConfig.configValueString("botKey"),
+                stConfig.configValueString("botKey"),
                 Storages.stDeeplink
             )
         ),

@@ -1,5 +1,6 @@
 package helpers.storage
 
+import helpers.storage.edb_commons.EDBConnection
 import staging.State
 
 class StatesFileHelping(

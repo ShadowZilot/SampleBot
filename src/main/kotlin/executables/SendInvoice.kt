@@ -1,6 +1,5 @@
 package executables
 
-import Storages.stConfig
 import core.Updating
 import logs.Logging
 import okhttp3.Call
@@ -9,6 +8,7 @@ import okhttp3.Request
 import okhttp3.Response
 import org.json.JSONArray
 import org.json.JSONObject
+import stConfig
 import updating.UpdatingChatId
 import java.io.IOException
 

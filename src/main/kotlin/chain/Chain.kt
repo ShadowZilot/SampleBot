@@ -5,11 +5,12 @@ import core.Updating
 import executables.Executable
 import handlers.BotRecognizerEvent
 import handlers.UnhandledEvent
+import stConfig
 
 abstract class Chain(
     private val mEvent: BotRecognizerEvent
 ) {
-    protected val mKey = Storages.stConfig.configValueString("botKey")
+    protected val mKey = stConfig.configValueString("botKey")
     protected val mStates = Storages.stStateStorage
 
     open fun checkEvent(updating: Updating) : Boolean {

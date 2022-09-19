@@ -1,8 +1,8 @@
 package raw_data_test
 
 import admin_bot_functions.statistic.SpeedTesting
-import helpers.storage.RawData
-import helpers.storage.ReadDataValue
+import helpers.storage.edb_commons.RawData
+import helpers.storage.edb_commons.ReadDataValue
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

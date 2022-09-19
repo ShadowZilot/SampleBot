@@ -25,12 +25,4 @@ data class Admin(
             userId: Long
         ) : T
     }
-
-    override fun id() = -1L
-
-    override fun toData() = JSONObject()
-
-    override fun contentLength(): Int {
-        TODO("Not yet implemented")
-    }
 }

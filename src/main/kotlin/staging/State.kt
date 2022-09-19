@@ -101,14 +101,6 @@ data class State(
             throw NotFoundStateValue(mUserId, key)
         }
     }
-
-    override fun id() = -1L
-
-    override fun toData() = JSONObject()
-
-    override fun contentLength(): Int {
-        TODO("Not yet implemented")
-    }
 }
 
 fun State.safetyString(key: String): String = try {

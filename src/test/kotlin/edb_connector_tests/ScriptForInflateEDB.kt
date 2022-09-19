@@ -1,7 +1,7 @@
 package edb_connector_tests
 
-import helpers.storage.EDBConnection
-import helpers.storage.RawData
+import helpers.storage.edb_commons.EDBConnection
+import helpers.storage.edb_commons.RawData
 import kotlin.test.Test
 
 class ScriptForInflateEDB {

@@ -1,8 +1,7 @@
 import admin_bot_functions.statistic.storage.StatisticFileHandling
 import admin_bot_functions.statistic.storage.StatisticHandling
 import admin_bot_functions.statistic.storage.StatisticType
-import helpers.storage.EDBConnection
-import java.io.File
+import helpers.storage.edb_commons.EDBConnection
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 

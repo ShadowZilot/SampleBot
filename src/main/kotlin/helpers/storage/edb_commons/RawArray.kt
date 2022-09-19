@@ -1,4 +1,4 @@
-package helpers.storage
+package helpers.storage.edb_commons
 
 private const val mArrayStartSymbol = '['
 private const val mArrayEndSymbol = ']'
@@ -33,7 +33,7 @@ interface RawArray {
         override fun stringSource() = buildString {
             append(mArrayStartSymbol)
             for (i in mValues.indices) {
-                append(mValues[i].cachedRecord())
+                append(mValues[i].cachedRecord(-1L))
                 if (i != mValues.size - 1) {
                     append(mArrayItemDividerSymbol)
                 }

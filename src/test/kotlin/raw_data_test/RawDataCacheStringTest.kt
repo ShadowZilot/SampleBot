@@ -1,7 +1,7 @@
 package raw_data_test
 
-import helpers.storage.RawArray
-import helpers.storage.RawData
+import helpers.storage.edb_commons.RawArray
+import helpers.storage.edb_commons.RawData
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

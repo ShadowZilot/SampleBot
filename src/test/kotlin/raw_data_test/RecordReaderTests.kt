@@ -1,7 +1,7 @@
 package raw_data_test
 
 import SpeedTesting
-import helpers.storage.RawData
+import helpers.storage.edb_commons.RawData
 import helpers.storage.RecordReader
 import kotlin.test.Test
 import kotlin.test.assertEquals

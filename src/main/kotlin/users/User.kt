@@ -1,7 +1,7 @@
 package users
 
 import helpers.storage.Record
-import org.json.JSONObject
+import java.sql.ResultSet
 
 data class User(
     private val mId: Long,
@@ -10,12 +10,13 @@ data class User(
     private val mSecondName: String,
     private val mIsStarted: Boolean = false
 ) : Record() {
-    constructor(item: JSONObject) : this(
-        item.getLong("id"),
-        item.getString("username"),
-        item.getString("firstName"),
-        item.getString("secondName"),
-        item.getBoolean("isStarted")
+
+    constructor(result: ResultSet) : this(
+        result.getLong("id"),
+        result.getString("username"),
+        result.getString("firstName"),
+        result.getString("secondName"),
+        result.getByte("isStarted") == 1.toByte()
     )
 
     fun <T> map(mapper: Mapper<T>) = mapper.map(
@@ -34,17 +35,5 @@ data class User(
             secondName: String,
             isStarted: Boolean
         ): T
-    }
-
-    override fun id(): Long {
-        TODO("Not yet implemented")
-    }
-
-    override fun toData(): JSONObject {
-        TODO("Not yet implemented")
-    }
-
-    override fun contentLength(): Int {
-        TODO("Not yet implemented")
     }
 }

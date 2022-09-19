@@ -1,75 +1,62 @@
 package users
 
+import all_users_handling.storage.UserId
 import all_users_handling.storage.UserNotFoundException
 import core.Updating
-import helpers.storage.UserFileHelping
+import helpers.storage.StorageShell
+import helpers.storage.jdbc_wrapping.DatabaseHelper
 import updating.UserFromUpdating
 
-interface AllUsersStorage {
+interface AllUsersStorage : StorageShell {
 
     suspend fun rewrittenUser(updating: Updating): User
-
-    suspend fun allUsers(): List<User>
 
     suspend fun user(updating: Updating): User
 
     suspend fun updateUser(user: User)
 
-    suspend fun indexOfUser(user: User): Int
-
     suspend fun userById(id: Long): User
 
     class Base(
-        private val mFile: UserFileHelping
+        private val mTableName: String,
+        private val mConnector: DatabaseHelper
     ) : AllUsersStorage {
 
         override suspend fun rewrittenUser(updating: Updating): User {
-            val createdUser = updating.map(UserFromUpdating())
-//            val user = try {
-//                mUsers[indexOfUser(createdUser)]
-//            } catch (e: UserNotFoundException) {
-//                mUsers.add(createdUser)
-//                mFile.cache(mUsers)
-//                createdUser
-//            }
-            return createdUser
+            updateUser(user(updating))
+            return userById(
+                updating.map(UserFromUpdating()).map(UserId())
+            )
         }
 
-        override suspend fun allUsers() = emptyList<User>()
-
         override suspend fun user(updating: Updating): User {
-//            return mUsers[indexOfUser(
-//                updating.map(UserFromUpdating())
-//            )]
             return updating.map(UserFromUpdating())
         }
 
         override suspend fun updateUser(user: User) {
-//            val index = indexOfUser(user)
-//            mUsers.removeAt(index)
-//            mUsers.add(index, user)
-//            mFile.cache(mUsers)
+            mConnector.executeQueryWithoutResult(
+                user.map(UpdateUserSqlQuery())
+            )
         }
 
-        override suspend fun indexOfUser(user: User): Int {
-//            val finder = UserSameId(user)
-//            val gottenUser = mUsers.find {
-//                it.map(finder)
-//            }
-//            return if (gottenUser != null) {
-//                mUsers.indexOf(gottenUser)
-//            } else {
-//                throw UserNotFoundException(user.map(UserId()))
-//            }
-            return 0
-        }
-
-        override suspend fun userById(id: Long): User {
-//            val finder = UserSameId(id)
-//            return mUsers.find {
-//                it.map(finder)
-//            } ?: throw UserNotFoundException(id)
+        override suspend fun userById(id: Long) = try {
+            User(
+                mConnector.executeQuery(
+                    "select * from $mTableName where id = $id"
+                )
+            )
+        } catch (e: Exception) {
             throw UserNotFoundException(id)
         }
+
+        override fun tableSchema() = "create table $mTableName(" +
+                "id int primary key," +
+                "username varchar(255)," +
+                "firstName varchar(255)," +
+                "secondName varchar(255)" +
+                "isStarted bit default 0" +
+                ");"
+
+        override fun tableName() = mTableName
     }
 }

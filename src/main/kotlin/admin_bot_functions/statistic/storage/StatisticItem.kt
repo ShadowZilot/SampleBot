@@ -29,13 +29,6 @@ data class StatisticItem(
         item.getLong("date")
     )
 
-    override fun id() = hashCode().toLong()
-
-    override fun toData(): JSONObject {
-        return this.map(StatisticItemToJson())
-    }
-
-    override fun contentLength() = toString().length
 
     fun <T> map(mapper: Mapper<T>) = mapper.map(
         mUserId,

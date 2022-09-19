@@ -8,6 +8,7 @@ import executables.DeleteMessage
 import executables.EditTextMessage
 import executables.Executable
 import handlers.OnTextGotten
+import stConfig
 import staging.safetyBoolean
 import updating.UpdatingMessage
 
@@ -18,7 +19,7 @@ class AddNewAdminChainFinal(
 ) {
     override suspend fun executableChain(updating: Updating): List<Executable> {
         return if (mStates.state(updating).safetyBoolean("isAwaitForBotPassword")) {
-            if (updating.map(UpdatingMessage()) == Storages.stConfig.configValueString("botPassword")) {
+            if (updating.map(UpdatingMessage()) == stConfig.configValueString("botPassword")) {
                 mStates.state(updating).editor(mStates).apply {
                     deleteValue("isAwaitForBotPassword")
                 }.commit()

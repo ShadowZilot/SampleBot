@@ -1,5 +1,9 @@
 {
   "botKey": "5439568076:AAEy8ypEuldcKpDlRuwZBJxWo0XOnaDOMRg",
   "botPassword": "vostok785621",
-  "botName": "D_e_v_e_l_o_p_TestBot"
+  "botName": "D_e_v_e_l_o_p_TestBot",
+  "dbRoot": "root",
+  "dbPassword": "root785621",
+  "dbName": "SampleBot",
+  "dbUrl": "jdbc:mysql://localhost:3306/SampleBot"
 }
