@@ -30,9 +30,20 @@ interface StateHandling : StorageShell {
         }
 
         override fun updateState(state: State) {
-            mConnector.executeQueryWithoutResult(
-                state.updateSQLQuery(mTableName)
-            )
+            mConnector.executeQuery(
+                "select count(*) as total from" +
+                        " `$mTableName` where `user_id` = ${state.mUserId}"
+            ) {
+                if (it.getInt("total") == 0) {
+                    mConnector.executeQueryWithoutResult(
+                        state.insertSQLQuery(mTableName)
+                    )
+                } else {
+                    mConnector.executeQueryWithoutResult(
+                        state.updateSQLQuery(mTableName)
+                    )
+                }
+            }
         }
 
         override fun state(id: Long): State {

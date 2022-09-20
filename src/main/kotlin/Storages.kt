@@ -6,7 +6,6 @@ import admin_bot_functions.deeplinking.storage.DeeplinkFileHandling
 import admin_bot_functions.deeplinking.storage.DeeplinkStorage
 import admin_bot_functions.statistic.storage.StatisticFileHandling
 import admin_bot_functions.statistic.storage.StatisticHandling
-import helpers.storage.StatesFileHelping
 import helpers.storage.edb_commons.EDBConnection
 import helpers.storage.jdbc_wrapping.DatabaseHelper
 import staging.StateHandling
@@ -23,15 +22,16 @@ object Storages {
         )
     )
     val stStateStorage = StateHandling.Base(
-        StatesFileHelping(
-            EDBConnection.Base("states.edb")
-        )
-    )
+        "states",
+        mDatabase
+    ).apply {
+        mDatabase.createTable(tableSchema())
+    }
     val stUsersStorage = AllUsersStorage.Base(
         "users",
         mDatabase
     ).apply {
-        mDatabase.createTable(this.tableSchema())
+        mDatabase.createTable(tableSchema())
     }
     val stStatistics = StatisticHandling.Base(
         StatisticFileHandling(

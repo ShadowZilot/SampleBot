@@ -25,4 +25,16 @@ data class Admin(
             userId: Long
         ) : T
     }
+
+    override fun insertSQLQuery(tableName: String): String {
+        TODO("Not yet implemented")
+    }
+
+    override fun updateSQLQuery(tableName: String): String {
+        TODO("Not yet implemented")
+    }
+
+    override fun deleteSQLQuery(tableName: String): String {
+        TODO("Not yet implemented")
+    }
 }
