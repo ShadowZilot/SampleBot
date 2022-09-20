@@ -1,29 +1,15 @@
 import admin_bot_functions.statistic.storage.StatisticHandling
 import admin_bot_functions.statistic.storage.StatisticType
 import helpers.storage.jdbc_wrapping.DatabaseHelper
-import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 class StatisticTesting {
     private val mDatabase = DatabaseHelper.Base.Instance.provideInstance()
     private val mDB = StatisticHandling.Base(
-        "statistics",
+        "statistics_test",
         mDatabase
     ).apply {
         mDatabase.createTable(tableSchema())
-    }
-
-    @BeforeTest
-    fun dbSetup() {
-        SpeedTesting.Base(
-            {
-                StatisticGenerator.Base(
-                    mDB
-                ).generate()
-            },
-            "Database generating",
-            5_000L
-        ).test()
     }
 
     @Test
@@ -38,8 +24,13 @@ class StatisticTesting {
                 )
             },
             "Base selecting",
-            10L
+            500L
         ).test()
-        assert(actualTime <= 10L)
+        assert(actualTime <= 500L)
+    }
+
+    @Test
+    fun countTest() {
+        println("Count users ${mDB.allUsers()}")
     }
 }
