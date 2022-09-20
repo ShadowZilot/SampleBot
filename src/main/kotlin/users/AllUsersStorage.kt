@@ -27,9 +27,9 @@ interface AllUsersStorage : StorageShell {
             val user = updating.map(UserFromUpdating())
             mConnector.executeQuery(
                 "select count(*) as total from $mTableName where id = ${updating.map(UserIdUpdating())}",
-            ) {
+            ) { result, _ ->
                 runBlocking {
-                    if (it.getInt("total") == 1) {
+                    if (result.getInt("total") == 1) {
                         updateUser(user)
                     } else {
                         mConnector.executeQueryWithoutResult(
@@ -55,8 +55,8 @@ interface AllUsersStorage : StorageShell {
             var user: User? = null
             mConnector.executeQuery(
                 "select * from $mTableName where id = $id",
-            ) {
-                user = User(it)
+            ) { result, _ ->
+                user = User(result)
             }
             user!!
         } catch (e: Exception) {

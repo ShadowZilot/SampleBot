@@ -49,7 +49,7 @@ interface StatisticHandling : StorageShell {
         override fun allUsers(): Int {
             var usersCount = 0
             mConnector.executeQuery(
-                "select count(*) as count_users from `$mTableName`"
+                "select count(distinct `user_id`) as count_users from `$mTableName`"
             ) { result, _ ->
                 usersCount = result.getInt("count_users")
             }

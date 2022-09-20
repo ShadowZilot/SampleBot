@@ -1,6 +1,5 @@
 package admin_bot_functions.add_new_admins
 
-import Storages
 import admin_bot_functions.admins_storage.AdminsHandling
 import chain.Chain
 import core.Updating
@@ -32,7 +31,7 @@ class AddNewAdminChainFinal(
                     EditTextMessage(
                         mKey,
                         "Отлично вы добавлены в список администраторов\\!",
-                        mEditingMessageId = mStates.state(updating).long("addNewAdminMessage")
+                        mEditingMessageId = mStates.state(updating).int("addNewAdminMessage").toLong()
                     )
                 )
             } else {
@@ -43,7 +42,7 @@ class AddNewAdminChainFinal(
                     ),
                     EditTextMessage(
                         mKey,
-                        "Пароль ввдён неверно\\!",
+                        "Пароль введён неверно\\!",
                         mEditingMessageId = mStates.state(updating).long("addNewAdminMessage")
                     )
                 )

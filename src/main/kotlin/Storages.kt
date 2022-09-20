@@ -11,7 +11,9 @@ object Storages {
     val stAdmins = AdminsHandling.Base(
         "admins",
         mDatabase
-    )
+    ).apply {
+        mDatabase.createTable(tableSchema())
+    }
     val stStateStorage = StateHandling.Base(
         "states",
         mDatabase

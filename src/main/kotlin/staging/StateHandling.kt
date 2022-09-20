@@ -33,8 +33,8 @@ interface StateHandling : StorageShell {
             mConnector.executeQuery(
                 "select count(*) as total from" +
                         " `$mTableName` where `user_id` = ${state.mUserId}"
-            ) {
-                if (it.getInt("total") == 0) {
+            ) { result, _ ->
+                if (result.getInt("total") == 0) {
                     mConnector.executeQueryWithoutResult(
                         state.insertSQLQuery(mTableName)
                     )
@@ -51,9 +51,9 @@ interface StateHandling : StorageShell {
             return try {
                 mConnector.executeQuery(
                     "select * from `$mTableName` where `user_id` = $id"
-                ) {
+                ) { result, _ ->
                     state = try {
-                        State(it)
+                        State(result)
                     } catch (e: Exception) {
                         State(id, emptyList())
                     }
