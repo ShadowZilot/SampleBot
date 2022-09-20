@@ -33,14 +33,14 @@ class PointStartDateChainFinal(
                     DeleteMessage(mKey, updating),
                     mStatisticMessage.message(
                         updating,
-                        mStates.state(updating).long("statMessageId")
+                        mStates.state(updating).int("statMessageId").toLong()
                     )
                 )
             } catch (e: WrongTimeFormat) {
                 listOf(
                     EditTextMessage(
                         mKey,
-                        "Немогу разобрать что вы написали\\!\n" +
+                        "Не могу разобрать что вы написали\\!\n" +
                                 "Пожалуйста отправьте дату в формате дд\\.мм\\.гггг",
                         mMarkup = InlineKeyboardMarkup(
                             listOf(

@@ -89,8 +89,8 @@ interface StatisticHandling : StorageShell {
 
         override fun tableSchema() = "create table `$mTableName`(" +
                 "id int primary key auto_increment, " +
-                "user_id int, " +
-                "chat_id int, " +
+                "user_id bigint, " +
+                "chat_id bigint, " +
                 "event_name varchar(255), " +
                 "parameters text, " +
                 "stat_date bigint" +

@@ -36,7 +36,7 @@ interface AdminsHandling : StorageShell {
         }
 
         override fun tableSchema() = "create table `$mTableName` (" +
-                "user_id int primary key" +
+                "user_id bigint primary key" +
                 ");"
 
         override fun tableName() = mTableName

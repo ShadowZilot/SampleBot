@@ -64,7 +64,7 @@ interface AllUsersStorage : StorageShell {
         }
 
         override fun tableSchema() = "create table `$mTableName`(" +
-                "`id` int primary key," +
+                "`id` bigint primary key," +
                 "`username` varchar(255)," +
                 "`firstName` varchar(255)," +
                 "`secondName` varchar(255)," +
