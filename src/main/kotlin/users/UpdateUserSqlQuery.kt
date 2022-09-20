@@ -1,6 +1,8 @@
 package users
 
-class UpdateUserSqlQuery : User.Mapper<String> {
+class UpdateUserSqlQuery(
+    private val mTableName: String
+) : User.Mapper<String> {
 
     override fun map(
         id: Long,
@@ -9,9 +11,9 @@ class UpdateUserSqlQuery : User.Mapper<String> {
         secondName: String,
         isStarted: Boolean
     ) =
-        "update users set username = $username," +
-                " firstName = $firstName," +
-                " secondName = $secondName," +
+        "update `$mTableName` set `username` = '$username'," +
+                " firstName = '$firstName'," +
+                " secondName = '$secondName'," +
                 " isStarted = ${if (isStarted) 1 else 0}" +
-                "where id = $id"
+                " where `id` = $id;"
 }

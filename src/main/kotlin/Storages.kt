@@ -7,12 +7,10 @@ import admin_bot_functions.deeplinking.storage.DeeplinkStorage
 import admin_bot_functions.statistic.storage.StatisticFileHandling
 import admin_bot_functions.statistic.storage.StatisticHandling
 import helpers.storage.StatesFileHelping
-import helpers.storage.UserFileHelping
 import helpers.storage.edb_commons.EDBConnection
 import helpers.storage.jdbc_wrapping.DatabaseHelper
 import staging.StateHandling
 import users.AllUsersStorage
-import users.UserToJson
 
 object Storages {
     private val mDatabase = DatabaseHelper.Base.Instance.provideInstance()
@@ -33,7 +31,7 @@ object Storages {
         "users",
         mDatabase
     ).apply {
-        mDatabase.executeQuery(this.tableSchema())
+        mDatabase.createTable(this.tableSchema())
     }
     val stStatistics = StatisticHandling.Base(
         StatisticFileHandling(

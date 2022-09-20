@@ -6,12 +6,15 @@ import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.ResultSet
 import java.sql.SQLException
+import java.sql.SQLSyntaxErrorException
 
 interface DatabaseHelper {
 
     fun executeQueryWithoutResult(sqlQuery: String)
 
-    fun executeQuery(sqlQuery: String) : ResultSet
+    fun createTable(sqlQuery: String)
+
+    fun executeQuery(sqlQuery: String, resultScope: (resultSet: ResultSet) -> Unit = {})
 
     class Base private constructor() : DatabaseHelper {
         private val mDBConnection : Connection
@@ -37,13 +40,24 @@ interface DatabaseHelper {
             }.close()
         }
 
-        override fun executeQuery(sqlQuery: String): ResultSet {
+        override fun createTable(sqlQuery: String) {
+            try {
+                mDBConnection.createStatement().apply {
+                    execute(sqlQuery)
+                }.close()
+            } catch (e: SQLSyntaxErrorException) {
+                // do nothing
+            }
+        }
+
+        override fun executeQuery(sqlQuery: String, resultScope: (resultSet: ResultSet) -> Unit) {
             val statement = mDBConnection.createStatement()
             val result : ResultSet
             statement.use { st ->
                 result = st.executeQuery(sqlQuery)
+                result.next()
+                resultScope.invoke(result)
             }
-            return result
         }
 
         object Instance {
