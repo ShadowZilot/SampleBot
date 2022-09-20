@@ -2,8 +2,8 @@ package admin_bot_functions.admins_storage
 
 import core.Updating
 import helpers.storage.Record
-import org.json.JSONObject
 import updating.UpdatingChatId
+import java.sql.ResultSet
 
 data class Admin(
     private val mUserId: Long
@@ -12,8 +12,8 @@ data class Admin(
         updating.map(UpdatingChatId()).second
     )
 
-    constructor(item: JSONObject) : this(
-        item.getLong("userId")
+    constructor(result: ResultSet) : this(
+        result.getLong("user_id")
     )
 
     fun <T> map(mapper: Mapper<T>) : T = mapper.map(
@@ -26,15 +26,12 @@ data class Admin(
         ) : T
     }
 
-    override fun insertSQLQuery(tableName: String): String {
-        TODO("Not yet implemented")
-    }
+    override fun insertSQLQuery(tableName: String) =
+        "insert into `$tableName` (`user_id`) values ($mUserId)"
 
-    override fun updateSQLQuery(tableName: String): String {
-        TODO("Not yet implemented")
-    }
+    override fun updateSQLQuery(tableName: String) =
+        "update `$tableName` set `user_id` = $mUserId"
 
-    override fun deleteSQLQuery(tableName: String): String {
-        TODO("Not yet implemented")
-    }
+    override fun deleteSQLQuery(tableName: String) =
+        "delete from `$tableName` where `user_id` = $mUserId"
 }
