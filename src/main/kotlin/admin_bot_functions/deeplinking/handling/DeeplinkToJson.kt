@@ -6,6 +6,7 @@ import org.json.JSONObject
 class DeeplinkToJson : Deeplink.Mapper<JSONObject> {
 
     override fun map(
+        id: Int,
         name: String,
         code: String,
         link: String,

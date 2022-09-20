@@ -1,6 +1,6 @@
 package admin_bot_functions.deeplinking.handling
 
-import admin_bot_functions.deeplinking.storage.Deeplink
+import admin_bot_functions.deeplinking.storage.DeeplinkStorage
 import kotlin.random.Random
 
 private val mSymbols = listOf(
@@ -33,15 +33,13 @@ interface GeneratingDeeplinkCode {
     }
 
     class Validating(
-        private val mLinks: List<Deeplink>,
+        private val mLinks: DeeplinkStorage,
         private val mGenerator: GeneratingDeeplinkCode
     ) : GeneratingDeeplinkCode {
 
         override fun generateCode(name: String): String {
             var generatedCode = mGenerator.generateCode(name)
-            while (mLinks.find {
-                    it.map(SameLinkCode(generatedCode))
-                } != null) {
+            while (mLinks.isCodeExist(generatedCode)) {
                 generatedCode = mGenerator.generateCode(name)
             }
             return generatedCode

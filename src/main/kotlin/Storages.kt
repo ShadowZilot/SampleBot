@@ -4,7 +4,6 @@ import admin_bot_functions.admins_storage.AdminsHandling
 import admin_bot_functions.deeplinking.handling.DeeplinkToJson
 import admin_bot_functions.deeplinking.storage.DeeplinkFileHandling
 import admin_bot_functions.deeplinking.storage.DeeplinkStorage
-import admin_bot_functions.statistic.storage.StatisticFileHandling
 import admin_bot_functions.statistic.storage.StatisticHandling
 import helpers.storage.edb_commons.EDBConnection
 import helpers.storage.jdbc_wrapping.DatabaseHelper
@@ -39,7 +38,6 @@ object Storages {
     ).apply {
         mDatabase.createTable(tableSchema())
     }
-
     val stDeeplink = DeeplinkStorage.Base(
         DeeplinkFileHandling(
             EDBConnection.Base("deeplink.edb"),
