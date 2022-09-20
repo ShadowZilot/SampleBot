@@ -8,6 +8,7 @@ class IsStatItemFit(
     private val mType: StatisticType
 ) : StatisticItem.Mapper<Boolean> {
     override fun map(
+        id: Int,
         userId: Long,
         chatId: Long,
         eventName: String,

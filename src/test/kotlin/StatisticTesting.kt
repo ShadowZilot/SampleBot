@@ -1,16 +1,17 @@
-import admin_bot_functions.statistic.storage.StatisticFileHandling
 import admin_bot_functions.statistic.storage.StatisticHandling
 import admin_bot_functions.statistic.storage.StatisticType
-import helpers.storage.edb_commons.EDBConnection
+import helpers.storage.jdbc_wrapping.DatabaseHelper
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 class StatisticTesting {
+    private val mDatabase = DatabaseHelper.Base.Instance.provideInstance()
     private val mDB = StatisticHandling.Base(
-        StatisticFileHandling(
-            EDBConnection.Base("statisticsTest.edb")
-        )
-    )
+        "statistics",
+        mDatabase
+    ).apply {
+        mDatabase.createTable(tableSchema())
+    }
 
     @BeforeTest
     fun dbSetup() {

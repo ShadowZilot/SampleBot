@@ -34,10 +34,11 @@ object Storages {
         mDatabase.createTable(tableSchema())
     }
     val stStatistics = StatisticHandling.Base(
-        StatisticFileHandling(
-            EDBConnection.Base("statistic.edb")
-        )
-    )
+        "statistics",
+        mDatabase
+    ).apply {
+        mDatabase.createTable(tableSchema())
+    }
 
     val stDeeplink = DeeplinkStorage.Base(
         DeeplinkFileHandling(

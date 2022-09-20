@@ -1,9 +1,11 @@
 package admin_bot_functions.statistic.storage
 
 import helpers.storage.Record
-import org.json.JSONObject
+import org.json.JSONArray
+import java.sql.ResultSet
 
 data class StatisticItem(
+    private val mId: Int,
     private val mUserId: Long,
     private val mChatId: Long,
     private val mEventName: String,
@@ -11,12 +13,13 @@ data class StatisticItem(
     private val mDate: Long,
 ) : Record() {
 
-    constructor(item: JSONObject) : this(
-        item.getLong("userId"),
-        item.getLong("chatId"),
-        item.getString("eventName"),
+    constructor(resultSet: ResultSet) : this(
+        resultSet.getInt("id"),
+        resultSet.getLong("user_id"),
+        resultSet.getLong("chat_id"),
+        resultSet.getString("event_name"),
         mutableListOf<Pair<String, Any>>().apply {
-            val array = item.getJSONArray("parameters")
+            val array = JSONArray(resultSet.getString("parameters"))
             for (i in 0 until array.length()) {
                 add(
                     Pair(
@@ -26,11 +29,11 @@ data class StatisticItem(
                 )
             }
         },
-        item.getLong("date")
+        resultSet.getLong("stat_date")
     )
 
-
     fun <T> map(mapper: Mapper<T>) = mapper.map(
+        mId,
         mUserId,
         mChatId,
         mEventName,
@@ -40,6 +43,7 @@ data class StatisticItem(
 
     interface Mapper<T> {
         fun map(
+            id: Int,
             userId: Long,
             chatId: Long,
             eventName: String,
@@ -48,15 +52,14 @@ data class StatisticItem(
         ): T
     }
 
-    override fun insertSQLQuery(tableName: String): String {
-        TODO("Not yet implemented")
-    }
+    override fun insertSQLQuery(tableName: String) =
+        "insert into `$tableName` (`user_id`, `chat_id`," +
+                " `event_name`, `parameters`, `stat_date`)" +
+                " values ($mUserId, $mChatId," +
+                " '$mEventName', '$mParameters', $mDate)"
 
-    override fun updateSQLQuery(tableName: String): String {
-        TODO("Not yet implemented")
-    }
+    override fun updateSQLQuery(tableName: String) = ""
 
-    override fun deleteSQLQuery(tableName: String): String {
-        TODO("Not yet implemented")
-    }
+    override fun deleteSQLQuery(tableName: String) =
+        "delete from `$tableName` where `id` = $mId"
 }

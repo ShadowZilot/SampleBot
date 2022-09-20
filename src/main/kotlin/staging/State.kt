@@ -115,7 +115,7 @@ data class State(
         }
     }' where `user_id` = $mUserId"
 
-    override fun deleteSQLQuery(tableName: String) = "delete * from `$tableName` where `user_id` = $mUserId"
+    override fun deleteSQLQuery(tableName: String) = "delete from `$tableName` where `user_id` = $mUserId"
 }
 
 fun State.safetyString(key: String): String = try {

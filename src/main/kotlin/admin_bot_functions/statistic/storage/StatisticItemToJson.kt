@@ -6,6 +6,7 @@ import org.json.JSONObject
 class StatisticItemToJson : StatisticItem.Mapper<JSONObject> {
 
     override fun map(
+        id: Int,
         userId: Long,
         chatId: Long,
         eventName: String,

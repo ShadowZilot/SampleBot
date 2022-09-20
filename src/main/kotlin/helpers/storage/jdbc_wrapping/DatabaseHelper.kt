@@ -14,10 +14,15 @@ interface DatabaseHelper {
 
     fun createTable(sqlQuery: String)
 
-    fun executeQuery(sqlQuery: String, resultScope: (resultSet: ResultSet) -> Unit = {})
+    fun executeQuery(
+        sqlQuery: String, resultScope: (
+            resultSet: ResultSet,
+            isNext: Boolean
+        ) -> Unit
+    )
 
     class Base private constructor() : DatabaseHelper {
-        private val mDBConnection : Connection
+        private val mDBConnection: Connection
 
         init {
             try {
@@ -50,22 +55,21 @@ interface DatabaseHelper {
             }
         }
 
-        override fun executeQuery(sqlQuery: String, resultScope: (resultSet: ResultSet) -> Unit) {
+        override fun executeQuery(sqlQuery: String, resultScope: (resultSet: ResultSet, isNext: Boolean) -> Unit) {
             val statement = mDBConnection.createStatement()
-            val result : ResultSet
+            val result: ResultSet
             statement.use { st ->
                 result = st.executeQuery(sqlQuery)
-                result.next()
-                resultScope.invoke(result)
+                resultScope.invoke(result, result.next())
             }
         }
 
         object Instance {
-            private var mInstance : DatabaseHelper? = null
+            private var mInstance: DatabaseHelper? = null
 
-            fun provideInstance() : DatabaseHelper {
+            fun provideInstance(): DatabaseHelper {
                 mInstance = if (mInstance == null) {
-                    DatabaseHelper.Base()
+                    Base()
                 } else {
                     mInstance
                 }
