@@ -38,7 +38,7 @@ data class Deeplink(
 
     override fun insertSQLQuery(tableName: String) =
         "insert into `$tableName` (`name`, `code`, `link`," +
-                " `link`, `count_users`)" +
+                " `count_users`)" +
                 " values ('$mName', '$mCode', '$mLink', $mCountUsers)"
 
     override fun updateSQLQuery(tableName: String) =

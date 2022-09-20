@@ -66,7 +66,7 @@ interface DeeplinkStorage : StorageShell {
                 GeneratingDeeplinkCode.Base()
             )
             val generatedCode = codeGenerator.generateCode(name)
-            mConnector.createTable(
+            mConnector.executeQueryWithoutResult(
                 Deeplink(
                     0,
                     name,
