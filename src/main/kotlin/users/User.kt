@@ -36,4 +36,23 @@ data class User(
             isStarted: Boolean
         ): T
     }
+
+    override fun insertSQLQuery(tableName: String) = "insert into $tableName (`id`," +
+    "`username`," +
+    "`firstName`, " +
+    "`secondName`," +
+    "`isStarted`) values($mId," +
+    "'$mUsername', "+
+    "'$mFirstName'," +
+    "'$mSecondName'," +
+    "${if (mIsStarted) 1 else 0})"
+
+    override fun updateSQLQuery(tableName: String) =
+        "update `$tableName` set `username` = '$mUsername'," +
+                " firstName = '$mFirstName'," +
+                " secondName = '$mSecondName'," +
+                " isStarted = ${if (mIsStarted) 1 else 0}" +
+                " where `id` = $mId;"
+
+    override fun deleteSQLQuery(tableName: String) = ""
 }

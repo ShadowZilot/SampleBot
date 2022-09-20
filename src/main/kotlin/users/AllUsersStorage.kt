@@ -33,7 +33,7 @@ interface AllUsersStorage : StorageShell {
                         updateUser(user)
                     } else {
                         mConnector.executeQueryWithoutResult(
-                            user.map(InsertUserSqlQuery(mTableName))
+                            user.insertSQLQuery(mTableName)
                         )
                     }
                 }
@@ -47,7 +47,7 @@ interface AllUsersStorage : StorageShell {
 
         override suspend fun updateUser(user: User) {
             mConnector.executeQueryWithoutResult(
-                user.map(UpdateUserSqlQuery(mTableName))
+                user.updateSQLQuery(mTableName)
             )
         }
 

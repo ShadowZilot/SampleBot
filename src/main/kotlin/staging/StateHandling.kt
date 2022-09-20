@@ -1,12 +1,14 @@
 package staging
 
 import core.Updating
-import helpers.storage.StorageHandling
+import helpers.storage.StorageShell
+import helpers.storage.jdbc_wrapping.DatabaseHelper
 import updating.UserIdUpdating
+import java.sql.SQLException
 
-interface StateHandling {
+interface StateHandling : StorageShell {
 
-    fun writeState(state: State, index: Int = 0)
+    fun writeState(state: State)
 
     fun updateState(state: State)
 
@@ -17,47 +19,55 @@ interface StateHandling {
     fun deleteState(id: Long)
 
     class Base(
-        private val mStore: StorageHandling<State>
+        private val mTableName: String,
+        private val mConnector: DatabaseHelper
     ) : StateHandling {
 
-        override fun writeState(state: State, index: Int) {
-//            mStates.add(index, state)
-//            mStore.cache(mStates)
+        override fun writeState(state: State) {
+            mConnector.executeQueryWithoutResult(
+                state.insertSQLQuery(mTableName)
+            )
         }
 
         override fun updateState(state: State) {
-//            val oldState = mStates.find {
-//                it.mUserId == state.mUserId
-//            }
-//            if (oldState != null) {
-//                val index = mStates.indexOf(
-//                    oldState
-//                )
-//                mStates.removeAt(index)
-//                writeState(state, index)
-//            } else {
-//                writeState(state)
-//            }
+            mConnector.executeQueryWithoutResult(
+                state.updateSQLQuery(mTableName)
+            )
         }
 
         override fun state(id: Long): State {
-//            return mStates.find {
-//                it.mUserId == id
-//            } ?: return State(id, listOf())
-            throw NotFoundState()
+            var state: State? = null
+            return try {
+                mConnector.executeQuery(
+                    "select * from `$mTableName` where `user_id` = $id"
+                ) {
+                    state = try {
+                        State(it)
+                    } catch (e: Exception) {
+                        State(id, emptyList())
+                    }
+                }
+                state ?: throw NotFoundState()
+            } catch (e: SQLException) {
+                State(id, emptyList())
+            }
         }
 
-        override fun state(updating: Updating) : State {
+        override fun state(updating: Updating): State {
             return state(updating.map(UserIdUpdating()))
         }
 
         override fun deleteState(id: Long) {
-//            mStates.remove(
-//                mStates.find {
-//                    it.mUserId == id
-//                }
-//            )
-//            mStore.cache(mStates)
+            mConnector.executeQueryWithoutResult(
+                "delete * from `$mTableName` where `user_id` = $id"
+            )
         }
+
+        override fun tableSchema() = "create table `$mTableName`(" +
+                "`user_id` int primary key, " +
+                "`codes` text" +
+                ");"
+
+        override fun tableName() = mTableName
     }
 }

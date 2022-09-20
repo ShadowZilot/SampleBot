@@ -3,6 +3,7 @@ package staging
 import helpers.storage.Record
 import org.json.JSONArray
 import org.json.JSONObject
+import java.sql.ResultSet
 
 data class State(
     val mUserId: Long,
@@ -30,10 +31,10 @@ data class State(
         oldState.mValues.merge(newState.mValues)
     )
 
-    constructor(item: JSONObject) : this(
-        item.getLong("user_id"),
+    constructor(resultSet: ResultSet) : this(
+        resultSet.getLong("user_id"),
         mutableListOf<Pair<String, Any>>().apply {
-            val array = item.getJSONArray("codes")
+            val array = JSONArray(resultSet.getString("codes"))
             for (i in 0 until array.length()) {
                 this.add(
                     Pair(
@@ -49,18 +50,6 @@ data class State(
         states,
         this
     )
-
-    fun toJson() = JSONObject().apply {
-        put("user_id", mUserId)
-        put("codes", JSONArray().apply {
-            mValues.forEach {
-                this.put(JSONObject().apply {
-                    put("code", it.first)
-                    put("data", it.second)
-                })
-            }
-        })
-    }
 
     fun string(key: String): String {
         return try {
@@ -101,6 +90,32 @@ data class State(
             throw NotFoundStateValue(mUserId, key)
         }
     }
+
+    override fun insertSQLQuery(tableName: String) = "insert into `$tableName`" +
+            " (`user_id`, `codes`) " +
+            " values($mUserId, '${
+                JSONArray().apply {
+                    for (i in mValues.indices) {
+                        put(JSONObject().apply {
+                            put("code", mValues[i].first)
+                            put("data", mValues[i].second)
+                        })
+                    }
+                }
+            }')"
+
+    override fun updateSQLQuery(tableName: String) = "update `$tableName` set `codes` = '${
+        JSONArray().apply {
+            for (i in mValues.indices) {
+                put(JSONObject().apply {
+                    put("code", mValues[i].first)
+                    put("data", mValues[i].second)
+                })
+            }
+        }
+    }' where `user_id` = $mUserId"
+
+    override fun deleteSQLQuery(tableName: String) = "delete * from `$tableName` where `user_id` = $mUserId"
 }
 
 fun State.safetyString(key: String): String = try {
