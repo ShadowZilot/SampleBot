@@ -1,3 +1,4 @@
 
-rootProject.name = "SampleBot"
+rootProject.name = "KBotLib"
+include("lib")
 
