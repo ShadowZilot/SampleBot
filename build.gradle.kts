@@ -30,44 +30,39 @@ java {
     withSourcesJar()
 }
 
-//val sourcesJar by tasks.registering(Jar::class) {
-//    classifier = "sources"
-//    from(sourceSets.main.get().allSource)
-//}
-
 publishing {
     publications {
 
-        register("mavenJava", MavenPublication::class.java) {
+        create<MavenPublication>("mavenJava") {
 
             groupId = "io.github.shadowzilot"
             artifactId = "kbotlib"
             version = "1.0.0"
             from(project.components["java"])
-            //artifact(sourcesJar.get())
 
             pom {
-                name.value("KBotLib")
-                description.value("KBotLib is a library that allows to create telegram bot on Kotlin programming language")
-                url.value("https://github.com/ShadowZilot/SampleBot")
+                name.set("KBotLib")
+                description.set("KBotLib is a library that allows to create telegram bot on Kotlin programming language")
+                url.set("https://github.com/ShadowZilot/SampleBot")
+                inceptionYear.set("2022")
                 licenses {
                     license {
-                        name.value("The Apache License, Version 2.0")
-                        url.value("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                        name.set("The Apache License, Version 2.0")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
                     }
                 }
                 developers {
                     developer {
-                        id.value("ShadowZilot")
-                        name.value("Egor Ponomarev")
-                        email.value("humanvectoringsoft@gmail.com")
+                        id.set("ShadowZilot")
+                        name.set("Egor Ponomarev")
+                        email.set("humanvectoringsoft@gmail.com")
                     }
                 }
 
                 scm {
-                    connection.value("scm:git:git:github.com/ShadowZilot/SampleBot.git")
-                    developerConnection.value("scm:git:ssh://github.com/ShadowZilot/SampleBot.git")
-                    url.value("https://github.com/ShadowZilot/SampleBot")
+                    connection.set("scm:git:git:github.com/ShadowZilot/SampleBot.git")
+                    developerConnection.set("scm:git:ssh://github.com/ShadowZilot/SampleBot.git")
+                    url.set("https://github.com/ShadowZilot/SampleBot")
                 }
             }
         }
@@ -81,12 +76,13 @@ publishing {
                 username = project.properties["ossrhUsername"] as String?
                 password = project.properties["ossrhPassword"] as String?
             }
+            credentials(PasswordCredentials::class)
         }
     }
 }
 
 signing {
-    sign(publishing.publications.getByName("mavenJava"))
+    sign(publishing.publications["mavenJava"])
 }
 
 dependencies {
@@ -99,8 +95,6 @@ dependencies {
     implementation("mysql:mysql-connector-java:8.0.30")
 }
 
-
-
 tasks.test {
     useJUnitPlatform()
 }
@@ -108,12 +102,6 @@ tasks.test {
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
-
-//javadoc {
-//    if(JavaVersion.current().isJava9Compatible()) {
-//        options.addBooleanOption('html5', true)
-//    }
-//}
 
 application {
     mainClass.set("MainKt")
